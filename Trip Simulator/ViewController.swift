@@ -37,7 +37,7 @@ class ViewController: NSViewController {
     
     @IBAction func fromAction(_ sender: NSSearchField) {
         
-        sender.cell.
+        
         
     }
 }
