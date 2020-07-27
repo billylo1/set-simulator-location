@@ -15,9 +15,16 @@ class ViewController: NSViewController {
     private var currentPlacemark: CLPlacemark?
     private var boundingRegion: MKCoordinateRegion = MKCoordinateRegion(MKMapRect.world)
 
+    @IBOutlet var map: MKMapView!
+    @IBOutlet var fromOutlet: NSSearchField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(textDidEndEditing(_:)),
+                                               name: NSSearchField.textDidEndEditingNotification,
+                                               object: nil)
 
         // Do any additional setup after loading the view.
     }
@@ -33,13 +40,18 @@ class ViewController: NSViewController {
         }
     }
 
-    @IBOutlet var map: MKMapView!
-    
-    @IBAction func fromAction(_ sender: NSSearchField) {
+    @objc func textDidEndEditing(_ obj: Notification) {
         
-        
-        
+        let fromField = obj.object as! NSSearchField
+        print(fromField.cell?.stringValue ?? "Unknown")
+
     }
+
+    @IBAction func routeAction(_ sender: NSButton) {
+        
+        print("Route button pressed")
+    }
+    
 }
 
 // MARK: - Location Handling
@@ -64,7 +76,7 @@ extension ViewController {
         let message = NSLocalizedString("LOCATION_SERVICES_DISABLED", comment: "Location services are disabled")
         let alert = NSAlert()
         alert.messageText = message
-        alert.informativeText = "Simulator will continue to work."
+        alert.informativeText = "Simulator will continue to work. Starting location won't be set."
         alert.beginSheetModal(for: self.view.window!) { (response) in
 
         }
