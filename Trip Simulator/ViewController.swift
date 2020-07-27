@@ -35,6 +35,11 @@ class ViewController: NSViewController {
 
     @IBOutlet var map: MKMapView!
     
+    @IBAction func fromAction(_ sender: NSSearchField) {
+        
+        sender.cell.
+        
+    }
 }
 
 // MARK: - Location Handling
