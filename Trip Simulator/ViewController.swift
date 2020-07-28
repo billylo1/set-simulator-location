@@ -14,9 +14,24 @@ class ViewController: NSViewController {
     private let locationManager = CLLocationManager()
     private var currentPlacemark: CLPlacemark?
     private var boundingRegion: MKCoordinateRegion = MKCoordinateRegion(MKMapRect.world)
-
     @IBOutlet var map: MKMapView!
     @IBOutlet var fromOutlet: NSSearchField!
+
+    private var localSearch: MKLocalSearch? {
+        willSet {
+            // Clear the results and cancel the currently running local search before starting a new search.
+            // places = nil
+            localSearch?.cancel()
+        }
+    }
+
+    private var places: [MKMapItem]? {
+        didSet {
+            // tableView.reloadData()
+            // viewAllButton.isEnabled = places != nil
+        }
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +58,9 @@ class ViewController: NSViewController {
     @objc func textDidEndEditing(_ obj: Notification) {
         
         let fromField = obj.object as! NSSearchField
-        print(fromField.cell?.stringValue ?? "Unknown")
+        let searchString = fromField.cell?.stringValue ?? "unknown"
+        print(searchString)
+        search(for: searchString)
 
     }
 
@@ -52,6 +69,49 @@ class ViewController: NSViewController {
         print("Route button pressed")
     }
     
+
+    /// - Parameter queryString: A search string from the text the user entered
+    
+    private func search(for queryString: String?) {
+        
+        print("search for queryString")
+        let searchRequest = MKLocalSearch.Request()
+        searchRequest.naturalLanguageQuery = queryString
+        search(using: searchRequest)
+        
+    }
+    
+    /// - Tag: SearchRequest
+    private func search(using searchRequest: MKLocalSearch.Request) {
+        // Confine the map search area to an area around the user's current location.
+        searchRequest.region = boundingRegion
+        
+        // Include only point of interest results. This excludes results based on address matches.
+        // searchRequest.resultTypes = .pointOfInterest
+        
+        localSearch = MKLocalSearch(request: searchRequest)
+        localSearch?.start { [unowned self] (response, error) in
+            guard error == nil else {
+                self.displaySearchError(error)
+                return
+            }
+            
+            self.places = response?.mapItems
+            
+        }
+    }
+    
+    private func displaySearchError(_ error: Error?) {
+        
+        if let error = error as NSError?, let errorString = error.userInfo[NSLocalizedDescriptionKey] as? String {
+            
+            let alert = NSAlert()
+            alert.messageText = "Could not find any places."
+            alert.informativeText = errorString
+            alert.beginSheetModal(for: self.view.window!) { (response) in }
+
+        }
+    }
 }
 
 // MARK: - Location Handling

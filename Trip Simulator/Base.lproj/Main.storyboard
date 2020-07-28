@@ -784,7 +784,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="fromOutlet" destination="GI8-sX-btG" id="Ek9-LO-mnz"/>
                         <outlet property="map" destination="eTZ-8f-twd" id="26d-aq-6hp"/>
                     </connections>
                 </viewController>

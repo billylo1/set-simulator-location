@@ -11,6 +11,13 @@
 		BD0B9AA824CE17B200D0EF96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0B9AA724CE17B200D0EF96 /* ViewController.swift */; };
 		BD0B9AAA24CE17B300D0EF96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD0B9AA924CE17B300D0EF96 /* Assets.xcassets */; };
 		BD0B9AAD24CE17B300D0EF96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD0B9AAB24CE17B300D0EF96 /* Main.storyboard */; };
+		BD2D543E24CFCAFA00993012 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BD2D543D24CFCAFA00993012 /* icon.icns */; };
+		BD2D544024CFCAFA00993012 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2D543F24CFCAFA00993012 /* ShareViewController.swift */; };
+		BD2D544324CFCAFA00993012 /* ShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD2D544124CFCAFA00993012 /* ShareViewController.xib */; };
+		BD2D544824CFCAFA00993012 /* Simulate.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BD2D543B24CFCAFA00993012 /* Simulate.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BDBB2BB624CFC538008F1E68 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BDBB2BB524CFC538008F1E68 /* icon.icns */; };
+		BDBB2BB824CFC538008F1E68 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBB2BB724CFC538008F1E68 /* ShareViewController.swift */; };
+		BDBB2BBD24CFC538008F1E68 /* TripSimulatorExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BDBB2BB324CFC538008F1E68 /* TripSimulatorExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		OBJ_34 /* cli.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* cli.swift */; };
 		OBJ_35 /* coordinate+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* coordinate+extension.swift */; };
 		OBJ_36 /* coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* coordinate.swift */; };
@@ -24,6 +31,38 @@
 		OBJ_50 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		BD2D544624CFCAFA00993012 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD2D543A24CFCAFA00993012;
+			remoteInfo = Simulate;
+		};
+		BDBB2BBB24CFC538008F1E68 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = OBJ_1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BDBB2BB224CFC538008F1E68;
+			remoteInfo = TripSimulatorExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BDBB2BBE24CFC538008F1E68 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BD2D544824CFCAFA00993012 /* Simulate.appex in Embed App Extensions */,
+				BDBB2BBD24CFC538008F1E68 /* TripSimulatorExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		BD0B9AA324CE17B200D0EF96 /* Trip Simulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Trip Simulator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD0B9AA524CE17B200D0EF96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +71,17 @@
 		BD0B9AAC24CE17B300D0EF96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BD0B9AAE24CE17B300D0EF96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD0B9AAF24CE17B300D0EF96 /* Trip_Simulator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Trip_Simulator.entitlements; sourceTree = "<group>"; };
+		BD2D543B24CFCAFA00993012 /* Simulate.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Simulate.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD2D543D24CFCAFA00993012 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		BD2D543F24CFCAFA00993012 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		BD2D544224CFCAFA00993012 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ShareViewController.xib; sourceTree = "<group>"; };
+		BD2D544424CFCAFA00993012 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BD2D544524CFCAFA00993012 /* Simulate.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Simulate.entitlements; sourceTree = "<group>"; };
+		BDBB2BB324CFC538008F1E68 /* TripSimulatorExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TripSimulatorExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDBB2BB524CFC538008F1E68 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		BDBB2BB724CFC538008F1E68 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		BDBB2BB924CFC538008F1E68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BDBB2BBA24CFC538008F1E68 /* TripSimulatorExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TripSimulatorExtension.entitlements; sourceTree = "<group>"; };
 		OBJ_10 /* cli.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cli.swift; sourceTree = "<group>"; };
 		OBJ_11 /* coordinate+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "coordinate+extension.swift"; sourceTree = "<group>"; };
 		OBJ_12 /* coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = coordinate.swift; sourceTree = "<group>"; };
@@ -61,6 +111,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BD2D543824CFCAFA00993012 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDBB2BB024CFC538008F1E68 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		OBJ_44 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
@@ -84,6 +148,29 @@
 			path = "Trip Simulator";
 			sourceTree = "<group>";
 		};
+		BD2D543C24CFCAFA00993012 /* Simulate */ = {
+			isa = PBXGroup;
+			children = (
+				BD2D543D24CFCAFA00993012 /* icon.icns */,
+				BD2D543F24CFCAFA00993012 /* ShareViewController.swift */,
+				BD2D544124CFCAFA00993012 /* ShareViewController.xib */,
+				BD2D544424CFCAFA00993012 /* Info.plist */,
+				BD2D544524CFCAFA00993012 /* Simulate.entitlements */,
+			);
+			path = Simulate;
+			sourceTree = "<group>";
+		};
+		BDBB2BB424CFC538008F1E68 /* TripSimulatorExtension */ = {
+			isa = PBXGroup;
+			children = (
+				BDBB2BB524CFC538008F1E68 /* icon.icns */,
+				BDBB2BB724CFC538008F1E68 /* ShareViewController.swift */,
+				BDBB2BB924CFC538008F1E68 /* Info.plist */,
+				BDBB2BBA24CFC538008F1E68 /* TripSimulatorExtension.entitlements */,
+			);
+			path = TripSimulatorExtension;
+			sourceTree = "<group>";
+		};
 		OBJ_20 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -96,11 +183,13 @@
 			children = (
 				"set-simulator-location::set-simulator-location::Product" /* set-simulator-location */,
 				BD0B9AA324CE17B200D0EF96 /* Trip Simulator.app */,
+				BDBB2BB324CFC538008F1E68 /* TripSimulatorExtension.appex */,
+				BD2D543B24CFCAFA00993012 /* Simulate.appex */,
 			);
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -108,6 +197,8 @@
 				OBJ_9 /* Sources */,
 				OBJ_20 /* Tests */,
 				BD0B9AA424CE17B200D0EF96 /* Trip Simulator */,
+				BDBB2BB424CFC538008F1E68 /* TripSimulatorExtension */,
+				BD2D543C24CFCAFA00993012 /* Simulate */,
 				OBJ_21 /* Products */,
 				OBJ_23 /* sources */,
 				OBJ_24 /* xcodeproj.xcconfig */,
@@ -116,7 +207,6 @@
 				OBJ_27 /* README.md */,
 				OBJ_28 /* CONTRIBUTING.md */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Configs */ = {
@@ -155,15 +245,52 @@
 				BD0B9A9F24CE17B200D0EF96 /* Sources */,
 				BD0B9AA024CE17B200D0EF96 /* Frameworks */,
 				BD0B9AA124CE17B200D0EF96 /* Resources */,
+				BDBB2BBE24CFC538008F1E68 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				BDBB2BBC24CFC538008F1E68 /* PBXTargetDependency */,
+				BD2D544724CFCAFA00993012 /* PBXTargetDependency */,
 			);
 			name = "Trip Simulator";
 			productName = "Trip Simulator";
 			productReference = BD0B9AA324CE17B200D0EF96 /* Trip Simulator.app */;
 			productType = "com.apple.product-type.application";
+		};
+		BD2D543A24CFCAFA00993012 /* Simulate */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD2D544B24CFCAFA00993012 /* Build configuration list for PBXNativeTarget "Simulate" */;
+			buildPhases = (
+				BD2D543724CFCAFA00993012 /* Sources */,
+				BD2D543824CFCAFA00993012 /* Frameworks */,
+				BD2D543924CFCAFA00993012 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Simulate;
+			productName = Simulate;
+			productReference = BD2D543B24CFCAFA00993012 /* Simulate.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		BDBB2BB224CFC538008F1E68 /* TripSimulatorExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BDBB2BC124CFC538008F1E68 /* Build configuration list for PBXNativeTarget "TripSimulatorExtension" */;
+			buildPhases = (
+				BDBB2BAF24CFC538008F1E68 /* Sources */,
+				BDBB2BB024CFC538008F1E68 /* Frameworks */,
+				BDBB2BB124CFC538008F1E68 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TripSimulatorExtension;
+			productName = TripSimulatorExtension;
+			productReference = BDBB2BB324CFC538008F1E68 /* TripSimulatorExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		"set-simulator-location::SwiftPMPackageDescription" /* set-simulator-locationPackageDescription */ = {
 			isa = PBXNativeTarget;
@@ -202,10 +329,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 9999;
-				LastSwiftUpdateCheck = 1160;
+				LastSwiftUpdateCheck = 1200;
 				LastUpgradeCheck = 9999;
 				TargetAttributes = {
 					BD0B9AA224CE17B200D0EF96 = {
+						CreatedOnToolsVersion = 11.6;
+					};
+					BD2D543A24CFCAFA00993012 = {
+						CreatedOnToolsVersion = 12.0;
+					};
+					BDBB2BB224CFC538008F1E68 = {
 						CreatedOnToolsVersion = 11.6;
 					};
 				};
@@ -218,7 +351,7 @@
 				en,
 				Base,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_21 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -226,6 +359,8 @@
 				"set-simulator-location::set-simulator-location" /* set-simulator-location */,
 				"set-simulator-location::SwiftPMPackageDescription" /* set-simulator-locationPackageDescription */,
 				BD0B9AA224CE17B200D0EF96 /* Trip Simulator */,
+				BDBB2BB224CFC538008F1E68 /* TripSimulatorExtension */,
+				BD2D543A24CFCAFA00993012 /* Simulate */,
 			);
 		};
 /* End PBXProject section */
@@ -240,6 +375,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BD2D543924CFCAFA00993012 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD2D544324CFCAFA00993012 /* ShareViewController.xib in Resources */,
+				BD2D543E24CFCAFA00993012 /* icon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDBB2BB124CFC538008F1E68 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDBB2BB624CFC538008F1E68 /* icon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -249,6 +401,22 @@
 			files = (
 				BD0B9AA824CE17B200D0EF96 /* ViewController.swift in Sources */,
 				BD0B9AA624CE17B200D0EF96 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD2D543724CFCAFA00993012 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD2D544024CFCAFA00993012 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDBB2BAF24CFC538008F1E68 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDBB2BB824CFC538008F1E68 /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +447,19 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		BD2D544724CFCAFA00993012 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BD2D543A24CFCAFA00993012 /* Simulate */;
+			targetProxy = BD2D544624CFCAFA00993012 /* PBXContainerItemProxy */;
+		};
+		BDBB2BBC24CFC538008F1E68 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BDBB2BB224CFC538008F1E68 /* TripSimulatorExtension */;
+			targetProxy = BDBB2BBB24CFC538008F1E68 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		BD0B9AAB24CE17B300D0EF96 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -288,12 +469,21 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
+		BD2D544124CFCAFA00993012 /* ShareViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BD2D544224CFCAFA00993012 /* Base */,
+			);
+			name = ShareViewController.xib;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		BD0B9AB024CE17B300D0EF96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -348,7 +538,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.evergreenlabs.Trip-Simulator";
@@ -361,6 +551,7 @@
 		BD0B9AB124CE17B300D0EF96 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -411,11 +602,275 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.evergreenlabs.Trip-Simulator";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		BD2D544924CFCAFA00993012 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Simulate/Simulate.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = F6X27PB5BH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Simulate/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.evergreenlabs.Trip-Simulator.Simulate";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		BD2D544A24CFCAFA00993012 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Simulate/Simulate.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = F6X27PB5BH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Simulate/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.evergreenlabs.Trip-Simulator.Simulate";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		BDBB2BBF24CFC538008F1E68 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = TripSimulatorExtension/TripSimulatorExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = F6X27PB5BH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = TripSimulatorExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.16;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.evergreenlabs.Trip-Simulator.TripSimulatorExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		BDBB2BC024CFC538008F1E68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = TripSimulatorExtension/TripSimulatorExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = F6X27PB5BH;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = TripSimulatorExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.16;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.evergreenlabs.Trip-Simulator.TripSimulatorExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -550,6 +1005,24 @@
 			buildConfigurations = (
 				BD0B9AB024CE17B300D0EF96 /* Debug */,
 				BD0B9AB124CE17B300D0EF96 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD2D544B24CFCAFA00993012 /* Build configuration list for PBXNativeTarget "Simulate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD2D544924CFCAFA00993012 /* Debug */,
+				BD2D544A24CFCAFA00993012 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BDBB2BC124CFC538008F1E68 /* Build configuration list for PBXNativeTarget "TripSimulatorExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BDBB2BBF24CFC538008F1E68 /* Debug */,
+				BDBB2BC024CFC538008F1E68 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
