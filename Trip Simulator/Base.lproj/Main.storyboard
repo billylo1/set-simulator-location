@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
         <plugIn identifier="com.apple.MapKitIBPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -720,7 +719,7 @@
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OWx-dQ-ITi" userLabel="FromToView">
                                         <rect key="frame" x="0.0" y="0.0" width="670" height="40"/>
                                         <subviews>
-                                            <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GI8-sX-btG" userLabel="From">
+                                            <searchField identifier="from" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GI8-sX-btG" userLabel="From">
                                                 <rect key="frame" x="0.0" y="9" width="332" height="22"/>
                                                 <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="From" usesSingleLineMode="YES" bezelStyle="round" id="W6D-AS-58H">
                                                     <font key="font" metaFont="system"/>
@@ -731,7 +730,7 @@
                                                     <action selector="fromAction:" target="XfG-lQ-9wD" id="iXK-k5-CvO"/>
                                                 </connections>
                                             </searchField>
-                                            <searchField wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOj-kn-rde" userLabel="To">
+                                            <searchField identifier="to" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOj-kn-rde" userLabel="To">
                                                 <rect key="frame" x="340" y="9" width="330" height="22"/>
                                                 <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="To" usesSingleLineMode="YES" bezelStyle="round" id="AB9-sU-bb3">
                                                     <font key="font" metaFont="system"/>
@@ -784,7 +783,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="fromOutlet" destination="GI8-sX-btG" id="Gpr-kE-fgK"/>
                         <outlet property="map" destination="eTZ-8f-twd" id="26d-aq-6hp"/>
+                        <outlet property="toOutlet" destination="GOj-kn-rde" id="2Ld-eC-u1H"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

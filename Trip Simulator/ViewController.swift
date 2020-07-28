@@ -16,7 +16,8 @@ class ViewController: NSViewController {
     private var boundingRegion: MKCoordinateRegion = MKCoordinateRegion(MKMapRect.world)
     @IBOutlet var map: MKMapView!
     @IBOutlet var fromOutlet: NSSearchField!
-
+    @IBOutlet var toOutlet: NSSearchField!
+    
     private var localSearch: MKLocalSearch? {
         willSet {
             // Clear the results and cancel the currently running local search before starting a new search.
@@ -54,40 +55,20 @@ class ViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
-
-    @objc func textDidEndEditing(_ obj: Notification) {
-        
-        let fromField = obj.object as! NSSearchField
-        let searchString = fromField.cell?.stringValue ?? "unknown"
-        print(searchString)
-        search(for: searchString)
-
-    }
-
+    
     @IBAction func routeAction(_ sender: NSButton) {
         
         print("Route button pressed")
     }
-    
 
-    /// - Parameter queryString: A search string from the text the user entered
-    
-    private func search(for queryString: String?) {
+
+    @objc func textDidEndEditing(_ obj: Notification) {
         
+        let field = obj.object as! NSSearchField
         print("search for queryString")
         let searchRequest = MKLocalSearch.Request()
-        searchRequest.naturalLanguageQuery = queryString
-        search(using: searchRequest)
-        
-    }
-    
-    /// - Tag: SearchRequest
-    private func search(using searchRequest: MKLocalSearch.Request) {
-        // Confine the map search area to an area around the user's current location.
+        searchRequest.naturalLanguageQuery = field.cell?.stringValue
         searchRequest.region = boundingRegion
-        
-        // Include only point of interest results. This excludes results based on address matches.
-        // searchRequest.resultTypes = .pointOfInterest
         
         localSearch = MKLocalSearch(request: searchRequest)
         localSearch?.start { [unowned self] (response, error) in
@@ -97,8 +78,20 @@ class ViewController: NSViewController {
             }
             
             self.places = response?.mapItems
+            var outlet = self.fromOutlet
+            let fieldId = (field.identifier?.rawValue ?? "") as String
+            if (fieldId == "to") {
+                outlet = self.toOutlet
+            }
+            
+            let items = response?.mapItems;
+            if (items!.count > 0) {
+                let item = items![0]
+                outlet?.stringValue = item.placemark.name!
+            }
             
         }
+
     }
     
     private func displaySearchError(_ error: Error?) {
