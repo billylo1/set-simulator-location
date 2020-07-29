@@ -13,8 +13,12 @@ class ViewController: NSViewController {
 
     private let locationManager = CLLocationManager()
     private var currentPlacemark: CLPlacemark?
+    private var fromPlacemark: MKPlacemark!
+    private var toPlacemark: MKPlacemark!
+    private var route: MKRoute!
+
     private var boundingRegion: MKCoordinateRegion = MKCoordinateRegion(MKMapRect.world)
-    @IBOutlet var map: MKMapView!
+    @IBOutlet var mapView: MKMapView!
     @IBOutlet var fromOutlet: NSSearchField!
     @IBOutlet var toOutlet: NSSearchField!
     
@@ -37,6 +41,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
+        mapView.delegate = self
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(textDidEndEditing(_:)),
                                                name: NSSearchField.textDidEndEditingNotification,
@@ -59,8 +64,51 @@ class ViewController: NSViewController {
     @IBAction func routeAction(_ sender: NSButton) {
         
         print("Route button pressed")
-    }
+        
+        // 4.
+        let sourceMapItem = MKMapItem(placemark: fromPlacemark)
+        let destinationMapItem = MKMapItem(placemark: toPlacemark)
+        
+        // 5.
+        let sourceAnnotation = MKPointAnnotation()
+        sourceAnnotation.title = fromPlacemark.title
+        sourceAnnotation.coordinate = fromPlacemark.coordinate
+        
+        
+        let destinationAnnotation = MKPointAnnotation()
+        destinationAnnotation.title = toPlacemark.title
+        destinationAnnotation.coordinate = toPlacemark.coordinate
+        
+        // 6.
+        self.mapView.showAnnotations([sourceAnnotation,destinationAnnotation], animated: true )
+        
+        // 7.
+        let directionRequest = MKDirections.Request()
+        directionRequest.source = sourceMapItem
+        directionRequest.destination = destinationMapItem
+        directionRequest.transportType = .automobile
+        
+        // Calculate the direction
+        let directions = MKDirections(request: directionRequest)
+        
+        // 8.
+        directions.calculate {
+            (response, error) -> Void in
+            
+            guard let response = response else {
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                
+                return
+            }
+            
+            self.route = response.routes[0]
+            self.mapView.addOverlay(self.route.polyline)
 
+        }
+
+    }
 
     @objc func textDidEndEditing(_ obj: Notification) {
         
@@ -78,15 +126,19 @@ class ViewController: NSViewController {
             }
             
             self.places = response?.mapItems
-            var outlet = self.fromOutlet
             let fieldId = (field.identifier?.rawValue ?? "") as String
-            if (fieldId == "to") {
-                outlet = self.toOutlet
-            }
-            
             let items = response?.mapItems;
             if (items!.count > 0) {
                 let item = items![0]
+                var outlet : NSSearchField!
+
+                if (fieldId == "to") {
+                    outlet = self.toOutlet
+                    self.toPlacemark = item.placemark
+                } else {
+                    outlet = self.fromOutlet
+                    self.fromPlacemark = item.placemark
+                }
                 outlet?.stringValue = item.placemark.name!
             }
             
@@ -105,6 +157,8 @@ class ViewController: NSViewController {
 
         }
     }
+    
+    
 }
 
 // MARK: - Location Handling
@@ -151,7 +205,7 @@ extension ViewController: CLLocationManagerDelegate {
         // https://stackoverflow.com/a/11519772
         
         let region = MKCoordinateRegion( center: location.coordinate, latitudinalMeters: CLLocationDistance(exactly: 5000)!, longitudinalMeters: CLLocationDistance(exactly: 5000)!)
-        map.setRegion(map.regionThatFits(region), animated: true)
+        mapView.setRegion(mapView.regionThatFits(region), animated: true)
 
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(location) { (placemark, error) in
@@ -168,3 +222,20 @@ extension ViewController: CLLocationManagerDelegate {
     }
 }
 
+extension ViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay.isKind(of: MKPolyline.self) {
+            // draw the track
+            let polyLine = overlay
+            let polyLineRenderer = MKPolylineRenderer(overlay: polyLine)
+            polyLineRenderer.strokeColor = NSColor.blue
+            polyLineRenderer.lineWidth = 3.0
+
+            return polyLineRenderer
+        }
+
+        return MKPolylineRenderer()
+    }
+
+}
