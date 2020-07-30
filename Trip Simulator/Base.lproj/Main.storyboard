@@ -707,19 +707,19 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Trip_Simulator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="746" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="952" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <mapView mapType="standard" pitchEnabled="NO" showsUserLocation="YES" showsScale="YES" showsTraffic="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eTZ-8f-twd">
-                                <rect key="frame" x="0.0" y="0.0" width="746" height="230"/>
+                                <rect key="frame" x="0.0" y="0.0" width="952" height="230"/>
                             </mapView>
                             <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zkz-st-hQv" userLabel="RoutingView">
-                                <rect key="frame" x="0.0" y="230" width="746" height="40"/>
+                                <rect key="frame" x="0.0" y="230" width="952" height="40"/>
                                 <subviews>
-                                    <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OWx-dQ-ITi" userLabel="FromToView">
-                                        <rect key="frame" x="0.0" y="0.0" width="670" height="40"/>
+                                    <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OWx-dQ-ITi" userLabel="FromToView">
+                                        <rect key="frame" x="0.0" y="0.0" width="672" height="40"/>
                                         <subviews>
-                                            <searchField identifier="from" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GI8-sX-btG" userLabel="From">
+                                            <searchField identifier="from" wantsLayer="YES" verticalHuggingPriority="750" ambiguous="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GI8-sX-btG" userLabel="From">
                                                 <rect key="frame" x="0.0" y="9" width="332" height="22"/>
                                                 <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="From" usesSingleLineMode="YES" bezelStyle="round" id="W6D-AS-58H">
                                                     <font key="font" metaFont="system"/>
@@ -730,8 +730,8 @@
                                                     <action selector="fromAction:" target="XfG-lQ-9wD" id="iXK-k5-CvO"/>
                                                 </connections>
                                             </searchField>
-                                            <searchField identifier="to" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOj-kn-rde" userLabel="To">
-                                                <rect key="frame" x="340" y="9" width="330" height="22"/>
+                                            <searchField identifier="to" wantsLayer="YES" verticalHuggingPriority="750" ambiguous="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOj-kn-rde" userLabel="To">
+                                                <rect key="frame" x="340" y="9" width="332" height="22"/>
                                                 <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="To" usesSingleLineMode="YES" bezelStyle="round" id="AB9-sU-bb3">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -751,9 +751,9 @@
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
                                     </stackView>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zwQ-Ze-NW8">
-                                        <rect key="frame" x="671" y="3" width="82" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Route" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="e3m-kR-6qp">
+                                    <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zwQ-Ze-NW8">
+                                        <rect key="frame" x="673" y="3" width="141" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Generate Route" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="e3m-kR-6qp">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -761,12 +761,27 @@
                                             <action selector="routeAction:" target="XfG-lQ-9wD" id="GSK-Ti-aAh"/>
                                         </connections>
                                     </button>
+                                    <button verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6sK-xc-MOR">
+                                        <rect key="frame" x="808" y="3" width="143" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Start Simulation" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Bc4-nl-WWd">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="startSimulationAction:" target="XfG-lQ-9wD" id="Nta-H8-bry"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="6sK-xc-MOR" secondAttribute="trailing" constant="8" id="2yF-Uc-EKO"/>
+                                </constraints>
                                 <visibilityPriorities>
+                                    <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>

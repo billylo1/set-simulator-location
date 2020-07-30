@@ -110,6 +110,18 @@ class ViewController: NSViewController {
 
     }
 
+    
+    @IBAction func startSimulationAction(_ sender: Any) {
+        
+        for step in route.steps {
+            
+            var coordinates: [CLLocationCoordinate2D] = Array(repeating: kCLLocationCoordinate2DInvalid, count: step.polyline.pointCount)
+            step.polyline.getCoordinates(&coordinates, range: NSRange(location: 0, length: step.polyline.pointCount))
+            
+        }
+        
+    }
+    
     @objc func textDidEndEditing(_ obj: Notification) {
         
         let field = obj.object as! NSSearchField
