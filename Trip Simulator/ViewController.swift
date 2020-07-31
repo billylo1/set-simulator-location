@@ -12,9 +12,11 @@ import CoreLocation
 class ViewController: NSViewController {
 
     private let locationManager = CLLocationManager()
-    private var currentPlacemark: CLPlacemark?
+    private var currentLocation: CLPlacemark?
     private var fromPlacemark: MKPlacemark!
     private var toPlacemark: MKPlacemark!
+    private var currentPlacemark: MKPlacemark?
+
     private var route: MKRoute!
 
     private var boundingRegion: MKCoordinateRegion = MKCoordinateRegion(MKMapRect.world)
@@ -139,6 +141,13 @@ class ViewController: NSViewController {
     
     func moveMarkerTo(stepPoint: MKMapPoint) {
         
+        if currentPlacemark == nil {
+            currentPlacemark = MKPlacemark(coordinate: stepPoint.coordinate)
+        } else {
+            currentPlacemark?.coordinate = stepPoint.coordinate
+        }
+            
+        
         
     }
     
@@ -243,7 +252,7 @@ extension ViewController: CLLocationManagerDelegate {
         geocoder.reverseGeocodeLocation(location) { (placemark, error) in
             guard error == nil else { return }
             
-            self.currentPlacemark = placemark?.first
+            self.currentLocation = placemark?.first
             self.boundingRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 12_000, longitudinalMeters: 12_000)
             // self.suggestionController.updatePlacemark(self.currentPlacemark, boundingRegion: self.boundingRegion)
         }
@@ -277,5 +286,13 @@ extension CLLocationCoordinate2D {
     func distance(from: CLLocationCoordinate2D) -> CLLocationDistance {
         let destination=CLLocation(latitude:from.latitude,longitude:from.longitude)
         return CLLocation(latitude: latitude, longitude: longitude).distance(from: destination)
+    }
+}
+
+class MyAnnotation: NSObject, MKAnnotation {
+    @objc dynamic var coordinate: CLLocationCoordinate2D
+    //Add your custom code here
+    override init() {
+        super.init()
     }
 }
