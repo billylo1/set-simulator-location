@@ -117,8 +117,28 @@ class ViewController: NSViewController {
             
             var coordinates: [CLLocationCoordinate2D] = Array(repeating: kCLLocationCoordinate2DInvalid, count: step.polyline.pointCount)
             step.polyline.getCoordinates(&coordinates, range: NSRange(location: 0, length: step.polyline.pointCount))
+            var totalDistance = 0.0
             
+            // calculate total distance to determine percentage completion
+            for i in 0..<step.polyline.pointCount {
+                let coord = coordinates[i]
+                if (i > 0) {
+                    totalDistance += (coord.distance(from: coordinates[i-1]))
+                }
+            }
+
+            let stepPoints = step.polyline.points()
+            for i in 0..<step.polyline.pointCount {
+                let stepPoint = stepPoints[i]
+                moveMarkerTo(stepPoint: stepPoint)
+            }
+
         }
+        
+    }
+    
+    func moveMarkerTo(stepPoint: MKMapPoint) {
+        
         
     }
     
@@ -250,4 +270,12 @@ extension ViewController: MKMapViewDelegate {
         return MKPolylineRenderer()
     }
 
+}
+
+extension CLLocationCoordinate2D {
+    //distance in meters, as explained in CLLoactionDistance definition
+    func distance(from: CLLocationCoordinate2D) -> CLLocationDistance {
+        let destination=CLLocation(latitude:from.latitude,longitude:from.longitude)
+        return CLLocation(latitude: latitude, longitude: longitude).distance(from: destination)
+    }
 }
