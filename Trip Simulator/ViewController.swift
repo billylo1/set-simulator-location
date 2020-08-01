@@ -16,6 +16,7 @@ class ViewController: NSViewController {
     private var fromPlacemark: MKPlacemark!
     private var toPlacemark: MKPlacemark!
     private var currentPlacemark: MKPlacemark?
+    private var currentAnnotation = MovableAnnotation()
 
     private var route: MKRoute!
 
@@ -81,8 +82,10 @@ class ViewController: NSViewController {
         destinationAnnotation.title = toPlacemark.title
         destinationAnnotation.coordinate = toPlacemark.coordinate
         
+        currentAnnotation.coordinate = fromPlacemark.coordinate
+        
         // 6.
-        self.mapView.showAnnotations([sourceAnnotation,destinationAnnotation], animated: true )
+        self.mapView.showAnnotations([sourceAnnotation,destinationAnnotation,self.currentAnnotation], animated: true )
         
         // 7.
         let directionRequest = MKDirections.Request()
@@ -115,6 +118,9 @@ class ViewController: NSViewController {
     
     @IBAction func startSimulationAction(_ sender: Any) {
         
+        var currentStepPoint : MKMapPoint
+        let timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateAnnotationCoordinates), userInfo: currentStepPoint, repeats: true)
+
         for step in route.steps {
             
             var coordinates: [CLLocationCoordinate2D] = Array(repeating: kCLLocationCoordinate2DInvalid, count: step.polyline.pointCount)
@@ -132,22 +138,16 @@ class ViewController: NSViewController {
             let stepPoints = step.polyline.points()
             for i in 0..<step.polyline.pointCount {
                 let stepPoint = stepPoints[i]
-                moveMarkerTo(stepPoint: stepPoint)
+                perform(#selector(updateAnnotationCoordinates(stepPoint:)), with: stepPoint, afterDelay: 1)
             }
 
         }
         
     }
     
-    func moveMarkerTo(stepPoint: MKMapPoint) {
+    @objc func updateAnnotationCoordinates( stepPoint: MKMapPoint) {
         
-        if currentPlacemark == nil {
-            currentPlacemark = MKPlacemark(coordinate: stepPoint.coordinate)
-        } else {
-            currentPlacemark?.coordinate = stepPoint.coordinate
-        }
-            
-        
+        currentAnnotation.coordinate = stepPoint.coordinate;
         
     }
     
@@ -289,10 +289,11 @@ extension CLLocationCoordinate2D {
     }
 }
 
-class MyAnnotation: NSObject, MKAnnotation {
+class MovableAnnotation: NSObject, MKAnnotation {
     @objc dynamic var coordinate: CLLocationCoordinate2D
     //Add your custom code here
     override init() {
+        coordinate = CLLocationCoordinate2DMake(0,0)
         super.init()
     }
 }
