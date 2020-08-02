@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17140" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17140"/>
-        <plugIn identifier="com.apple.MapKitIBPlugin" version="17140"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097.2"/>
+        <plugIn identifier="com.apple.MapKitIBPlugin" version="16097.2"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -720,7 +719,7 @@
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OWx-dQ-ITi" userLabel="FromToView">
                                         <rect key="frame" x="0.0" y="0.0" width="774" height="40"/>
                                         <subviews>
-                                            <searchField identifier="from" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GI8-sX-btG" userLabel="From">
+                                            <searchField identifier="fromField" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GI8-sX-btG" userLabel="From">
                                                 <rect key="frame" x="0.0" y="9" width="383" height="22"/>
                                                 <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="From" usesSingleLineMode="YES" bezelStyle="round" id="W6D-AS-58H">
                                                     <font key="font" metaFont="system"/>
@@ -731,7 +730,7 @@
                                                     <action selector="fromAction:" target="XfG-lQ-9wD" id="iXK-k5-CvO"/>
                                                 </connections>
                                             </searchField>
-                                            <searchField identifier="to" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOj-kn-rde" userLabel="To">
+                                            <searchField identifier="toField" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOj-kn-rde" userLabel="To">
                                                 <rect key="frame" x="391" y="9" width="383" height="22"/>
                                                 <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="To" usesSingleLineMode="YES" bezelStyle="round" id="AB9-sU-bb3">
                                                     <font key="font" metaFont="system"/>
@@ -753,7 +752,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zwQ-Ze-NW8">
-                                        <rect key="frame" x="785" y="3" width="142" height="32"/>
+                                        <rect key="frame" x="786" y="3" width="141" height="32"/>
                                         <buttonCell key="cell" type="push" title="Generate Route" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="e3m-kR-6qp">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -763,8 +762,8 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6sK-xc-MOR">
-                                        <rect key="frame" x="931" y="3" width="144" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Start Simulation" alternateTitle="Stop Simulation" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Bc4-nl-WWd">
+                                        <rect key="frame" x="931" y="3" width="143" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Start Simulation" alternateTitle="Stop Simulation" bezelStyle="rounded" alignment="center" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Bc4-nl-WWd">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>

@@ -175,7 +175,8 @@ class ViewController: NSViewController {
         // run simulation on a dedicated thread
         let speedString = speedOutlet.stringValue.replacingOccurrences(of: "x", with: "")
         let speedValue : Double = Double(speedString) ?? 1.0                       // default to 1X if not convertable
-        
+        simulateButton.state = NSControl.StateValue.on
+        simulateButton.stringValue = "Stop Simulation"
         simulationQueue.async{
             
             self.simulateMovement(stepNum: 0, speedValue: speedValue)
@@ -201,52 +202,48 @@ class ViewController: NSViewController {
         }
         
     }
-    
-    @objc func updateAnnotationCoordinates( stepPoint: MKMapPoint) {
         
-        currentAnnotation.coordinate = stepPoint.coordinate;
-        
-    }
-    
     @objc func textDidEndEditing(_ obj: Notification) {
         
-        if obj.object is NSSearchField && !(obj.object is NSComboBox) {
+        if obj.object is NSSearchField {
             
             let field = obj.object as! NSSearchField
-            print("search for queryString")
-            let searchRequest = MKLocalSearch.Request()
-            searchRequest.naturalLanguageQuery = field.cell?.stringValue
-            searchRequest.region = boundingRegion
-            
-            localSearch = MKLocalSearch(request: searchRequest)
-            localSearch?.start { [unowned self] (response, error) in
-                guard error == nil else {
-                    self.displaySearchError(error)
-                    return
-                }
+            if ((field.identifier?.rawValue.contains("Field")) != nil) {
+                print("search for queryString")
+                let searchRequest = MKLocalSearch.Request()
+                searchRequest.naturalLanguageQuery = field.cell?.stringValue
+                searchRequest.region = boundingRegion
                 
-                self.places = response?.mapItems
-                let fieldId = (field.identifier?.rawValue ?? "") as String
-                let items = response?.mapItems;
-                if (items!.count > 0) {
-                    let item = items![0]
-                    var outlet : NSSearchField!
-
-                    if (fieldId == "to") {
-                        outlet = self.toOutlet
-                        self.toPlacemark = item.placemark
-                    } else {
-                        outlet = self.fromOutlet
-                        self.fromPlacemark = item.placemark
+                localSearch = MKLocalSearch(request: searchRequest)
+                localSearch?.start { [unowned self] (response, error) in
+                    guard error == nil else {
+                        self.displaySearchError(error)
+                        return
                     }
-                    outlet?.stringValue = item.placemark.name!
+                    
+                    self.places = response?.mapItems
+                    let fieldId = (field.identifier?.rawValue ?? "") as String
+                    let items = response?.mapItems;
+                    if (items!.count > 0) {
+                        let item = items![0]
+                        var outlet : NSSearchField!
+
+                        if (fieldId == "toField") {
+                            outlet = self.toOutlet
+                            self.toPlacemark = item.placemark
+                        } else {
+                            outlet = self.fromOutlet
+                            self.fromPlacemark = item.placemark
+                        }
+                        outlet?.stringValue = item.placemark.name!
+                    }
+                    if (self.fromPlacemark != nil) && (self.toPlacemark != nil) {
+                        self.generateButton.isEnabled = true
+                    } else {
+                        self.generateButton.isEnabled = false
+                    }
+                    
                 }
-                if (fromPlacemark != nil) && (toPlacemark != nil) {
-                    self.generateButton.isEnabled = true
-                } else {
-                    self.generateButton.isEnabled = false
-                }
-                
             }
         }
 

@@ -14,8 +14,8 @@
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
             landmarkName = "textDidEndEditing(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
             landmarkName = "textDidEndEditing(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,8 +110,8 @@
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "336"
-            endingLineNumber = "336"
+            startingLineNumber = "333"
+            endingLineNumber = "333"
             landmarkName = "mapView(_:rendererFor:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -119,49 +119,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E1538314-4D2B-494D-857C-70B153C1AB26"
-            shouldBeEnabled = "No"
+            uuid = "577DDE80-6DCC-4F70-87E7-F7BA52EF231E"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
-            landmarkName = "startSimulationAction(_:)"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "textDidEndEditing(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E1538314-4D2B-494D-857C-70B153C1AB26 - 3196d05109429648"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Trip_Simulator.ViewController.startSimulationAction(Any) -&gt; ()"
-                  moduleName = "Trip Simulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/billylo/xcode/set-simulator-location/Trip%20Simulator/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "179"
-                  endingLineNumber = "179"
-                  offsetFromSymbolStart = "5936">
-               </Location>
-               <Location
-                  uuid = "E1538314-4D2B-494D-857C-70B153C1AB26 - efb1a24f5a2330fe"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in Trip_Simulator.ViewController.startSimulationAction(Any) -&gt; ()"
-                  moduleName = "Trip Simulator"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/billylo/xcode/set-simulator-location/Trip%20Simulator/ViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "181"
-                  endingLineNumber = "181"
-                  offsetFromSymbolStart = "32">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
