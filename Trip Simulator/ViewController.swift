@@ -27,7 +27,13 @@ class ViewController: NSViewController {
     private var boundingRegion: MKCoordinateRegion = MKCoordinateRegion(MKMapRect.world)
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var fromOutlet: NSSearchField!
+
     @IBOutlet var toOutlet: NSSearchField!
+
+    @IBOutlet var speedOutlet: NSComboBox!
+    
+    @IBOutlet weak var generateButton: NSButton!
+    @IBOutlet weak var simulateButton: NSButton!
     
     private var localSearch: MKLocalSearch? {
         willSet {
@@ -72,6 +78,12 @@ class ViewController: NSViewController {
         
         print("Route button pressed")
         
+        if (self.route != nil) {        // clear overlay
+            self.mapView.removeOverlay(self.route.polyline)
+        }
+
+        generateButton.isEnabled = false
+        
         // 4.
         let sourceMapItem = MKMapItem(placemark: fromPlacemark)
         let destinationMapItem = MKMapItem(placemark: toPlacemark)
@@ -104,16 +116,20 @@ class ViewController: NSViewController {
         directions.calculate {
             (response, error) -> Void in
             
+            self.generateButton.isEnabled = true
+
             guard let response = response else {
                 if let error = error {
                     print("Error: \(error)")
                 }
-                
                 return
             }
             
+            
             self.route = response.routes[0]
             self.mapView.addOverlay(self.route.polyline)
+            self.simulateButton.isEnabled = true
+            self.speedOutlet.isEnabled = true
 
         }
 
@@ -157,17 +173,19 @@ class ViewController: NSViewController {
         print("Total Duration = \(round(totalDuration/60)) for \(allSteps.count) steps")
         
         // run simulation on a dedicated thread
+        let speedString = speedOutlet.stringValue.replacingOccurrences(of: "x", with: "")
+        let speedValue : Double = Double(speedString) ?? 1.0                       // default to 1X if not convertable
         
         simulationQueue.async{
             
-            self.simulateMovement(stepNum: 0)
+            self.simulateMovement(stepNum: 0, speedValue: speedValue)
             
         }
 
         
     }
     
-    func simulateMovement(stepNum: Int) {
+    func simulateMovement(stepNum: Int, speedValue: Double) {
         
         print("> simulateMovement")
         for i in stepNum ..< allSteps.count - 1 {
@@ -176,7 +194,9 @@ class ViewController: NSViewController {
             DispatchQueue.main.async {
                 self.currentAnnotation.coordinate = step.coordinate
             }
-            let sleepTime : UInt32 = UInt32(allDurations[i] * 1000000 / 100)
+            let sleepTime : UInt32 = UInt32(allDurations[i] * 1000000 / speedValue)
+            
+            // enhancement: if sleepTime > 1 second, stage the movement between current step and next step
             usleep(sleepTime)
         }
         
@@ -190,36 +210,44 @@ class ViewController: NSViewController {
     
     @objc func textDidEndEditing(_ obj: Notification) {
         
-        let field = obj.object as! NSSearchField
-        print("search for queryString")
-        let searchRequest = MKLocalSearch.Request()
-        searchRequest.naturalLanguageQuery = field.cell?.stringValue
-        searchRequest.region = boundingRegion
-        
-        localSearch = MKLocalSearch(request: searchRequest)
-        localSearch?.start { [unowned self] (response, error) in
-            guard error == nil else {
-                self.displaySearchError(error)
-                return
-            }
+        if obj.object is NSSearchField && !(obj.object is NSComboBox) {
             
-            self.places = response?.mapItems
-            let fieldId = (field.identifier?.rawValue ?? "") as String
-            let items = response?.mapItems;
-            if (items!.count > 0) {
-                let item = items![0]
-                var outlet : NSSearchField!
-
-                if (fieldId == "to") {
-                    outlet = self.toOutlet
-                    self.toPlacemark = item.placemark
-                } else {
-                    outlet = self.fromOutlet
-                    self.fromPlacemark = item.placemark
+            let field = obj.object as! NSSearchField
+            print("search for queryString")
+            let searchRequest = MKLocalSearch.Request()
+            searchRequest.naturalLanguageQuery = field.cell?.stringValue
+            searchRequest.region = boundingRegion
+            
+            localSearch = MKLocalSearch(request: searchRequest)
+            localSearch?.start { [unowned self] (response, error) in
+                guard error == nil else {
+                    self.displaySearchError(error)
+                    return
                 }
-                outlet?.stringValue = item.placemark.name!
+                
+                self.places = response?.mapItems
+                let fieldId = (field.identifier?.rawValue ?? "") as String
+                let items = response?.mapItems;
+                if (items!.count > 0) {
+                    let item = items![0]
+                    var outlet : NSSearchField!
+
+                    if (fieldId == "to") {
+                        outlet = self.toOutlet
+                        self.toPlacemark = item.placemark
+                    } else {
+                        outlet = self.fromOutlet
+                        self.fromPlacemark = item.placemark
+                    }
+                    outlet?.stringValue = item.placemark.name!
+                }
+                if (fromPlacemark != nil) && (toPlacemark != nil) {
+                    self.generateButton.isEnabled = true
+                } else {
+                    self.generateButton.isEnabled = false
+                }
+                
             }
-            
         }
 
     }
