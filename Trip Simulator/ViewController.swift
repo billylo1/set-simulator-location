@@ -17,6 +17,10 @@ class ViewController: NSViewController {
     private var toPlacemark: MKPlacemark!
     private var currentPlacemark: MKPlacemark?
     private var currentAnnotation = MovableAnnotation()
+    private var allSteps : Array<MKMapPoint> = []
+    private var allDurations : Array<TimeInterval> = []
+    private let simulationQueue = DispatchQueue(label: "SimulationThread", qos: .background)
+
 
     private var route: MKRoute!
 
@@ -118,9 +122,10 @@ class ViewController: NSViewController {
     
     @IBAction func startSimulationAction(_ sender: Any) {
         
-        var currentStepPoint : MKMapPoint
-        let timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(updateAnnotationCoordinates), userInfo: currentStepPoint, repeats: true)
-
+        // prepare step array with duration for playback
+        
+        var totalDuration = 0.0
+        
         for step in route.steps {
             
             var coordinates: [CLLocationCoordinate2D] = Array(repeating: kCLLocationCoordinate2DInvalid, count: step.polyline.pointCount)
@@ -135,12 +140,44 @@ class ViewController: NSViewController {
                 }
             }
 
+            if (totalDistance > 0) {
             let stepPoints = step.polyline.points()
-            for i in 0..<step.polyline.pointCount {
-                let stepPoint = stepPoints[i]
-                perform(#selector(updateAnnotationCoordinates(stepPoint:)), with: stepPoint, afterDelay: 1)
+                for i in 0..<step.polyline.pointCount {
+                    let stepPoint = stepPoints[i]
+                    let pointDistance = stepPoint.distance(to: allSteps.last ?? stepPoint)
+                    let pointDuration = (pointDistance / totalDistance) * (step.distance / route.distance) * route.expectedTravelTime
+                    print("\(i): \(pointDuration) seconds, \(pointDistance)")
+                    allDurations.append(pointDuration)
+                    allSteps.append(stepPoint)
+                    totalDuration += pointDuration
+                }
             }
+            
+        }
+        print("Total Duration = \(round(totalDuration/60)) for \(allSteps.count) steps")
+        
+        // run simulation on a dedicated thread
+        
+        simulationQueue.async{
+            
+            self.simulateMovement(stepNum: 0)
+            
+        }
 
+        
+    }
+    
+    func simulateMovement(stepNum: Int) {
+        
+        print("> simulateMovement")
+        for i in stepNum ..< allSteps.count - 1 {
+            let step = allSteps[i]
+            print("moving to step \(i)")
+            DispatchQueue.main.async {
+                self.currentAnnotation.coordinate = step.coordinate
+            }
+            let sleepTime : UInt32 = UInt32(allDurations[i] * 1000000 / 100)
+            usleep(sleepTime)
         }
         
     }
