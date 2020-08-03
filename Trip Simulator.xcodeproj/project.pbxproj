@@ -11,6 +11,7 @@
 		BD0B9AA824CE17B200D0EF96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0B9AA724CE17B200D0EF96 /* ViewController.swift */; };
 		BD0B9AAA24CE17B300D0EF96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD0B9AA924CE17B300D0EF96 /* Assets.xcassets */; };
 		BD0B9AAD24CE17B300D0EF96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD0B9AAB24CE17B300D0EF96 /* Main.storyboard */; };
+		BD5E709B24D7A03D00CC6752 /* TODO.txt in Resources */ = {isa = PBXBuildFile; fileRef = BD5E709A24D7A03D00CC6752 /* TODO.txt */; };
 		OBJ_34 /* cli.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* cli.swift */; };
 		OBJ_35 /* coordinate+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* coordinate+extension.swift */; };
 		OBJ_36 /* coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* coordinate.swift */; };
@@ -45,6 +46,7 @@
 		BD0B9AAC24CE17B300D0EF96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BD0B9AAE24CE17B300D0EF96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD0B9AAF24CE17B300D0EF96 /* Trip_Simulator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Trip_Simulator.entitlements; sourceTree = "<group>"; };
+		BD5E709A24D7A03D00CC6752 /* TODO.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO.txt; sourceTree = "<group>"; };
 		OBJ_10 /* cli.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cli.swift; sourceTree = "<group>"; };
 		OBJ_11 /* coordinate+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "coordinate+extension.swift"; sourceTree = "<group>"; };
 		OBJ_12 /* coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = coordinate.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				BD0B9AAB24CE17B300D0EF96 /* Main.storyboard */,
 				BD0B9AAE24CE17B300D0EF96 /* Info.plist */,
 				BD0B9AAF24CE17B300D0EF96 /* Trip_Simulator.entitlements */,
+				BD5E709A24D7A03D00CC6752 /* TODO.txt */,
 			);
 			path = "Trip Simulator";
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			files = (
 				BD0B9AAA24CE17B300D0EF96 /* Assets.xcassets in Resources */,
 				BD0B9AAD24CE17B300D0EF96 /* Main.storyboard in Resources */,
+				BD5E709B24D7A03D00CC6752 /* TODO.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

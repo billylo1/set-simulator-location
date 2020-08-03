@@ -58,6 +58,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         locationManager.delegate = self
         mapView.delegate = self
         speedOutlet.delegate = self
+        fromOutlet.becomeFirstResponder()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(textDidEndEditing(_:)),
                                                name: NSSearchField.textDidEndEditingNotification,
@@ -280,6 +281,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                         } else {
                             outlet = self.fromOutlet
                             self.fromPlacemark = item.placemark
+                            self.toOutlet.becomeFirstResponder()
                         }
                         outlet?.stringValue = item.placemark.name!
                     }
