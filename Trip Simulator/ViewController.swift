@@ -9,7 +9,7 @@ import Cocoa
 import MapKit
 import CoreLocation
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, NSComboBoxDelegate {
 
     private let locationManager = CLLocationManager()
     private var currentLocation: CLPlacemark?
@@ -20,7 +20,9 @@ class ViewController: NSViewController {
     private var allSteps : Array<MKMapPoint> = []
     private var allDurations : Array<TimeInterval> = []
     private let simulationQueue = DispatchQueue(label: "SimulationThread", qos: .background)
-
+    private var simulating = false
+    private var stepNum = 0
+    private var speedValue : Double = 1.0
 
     private var route: MKRoute!
 
@@ -55,12 +57,15 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         locationManager.delegate = self
         mapView.delegate = self
+        speedOutlet.delegate = self
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(textDidEndEditing(_:)),
                                                name: NSSearchField.textDidEndEditingNotification,
                                                object: nil)
 
         // Do any additional setup after loading the view.
+        assignSpeed()
+
     }
 
     override func viewDidAppear() {
@@ -72,6 +77,20 @@ class ViewController: NSViewController {
         didSet {
         // Update the view, if already loaded.
         }
+    }
+    
+    @objc func comboBoxSelectionDidChange(_ notification: Notification) {
+        assignSpeed()
+    }
+
+    private func assignSpeed() {
+        
+        var speedStringRaw = speedOutlet.stringValue
+        if speedOutlet.indexOfSelectedItem >= 0 {
+            speedStringRaw = speedOutlet.itemObjectValue(at: speedOutlet.indexOfSelectedItem) as! String   // strange https://stackoverflow.com/a/5716009
+        }
+        let speedString = speedStringRaw.replacingOccurrences(of: "x", with: "")
+        self.speedValue = Double(speedString) ?? 1.0                       // default to 1X if not convertable
     }
     
     @IBAction func routeAction(_ sender: NSButton) {
@@ -140,66 +159,93 @@ class ViewController: NSViewController {
         
         // prepare step array with duration for playback
         
-        var totalDuration = 0.0
-        
-        for step in route.steps {
-            
-            var coordinates: [CLLocationCoordinate2D] = Array(repeating: kCLLocationCoordinate2DInvalid, count: step.polyline.pointCount)
-            step.polyline.getCoordinates(&coordinates, range: NSRange(location: 0, length: step.polyline.pointCount))
-            var totalDistance = 0.0
-            
-            // calculate total distance to determine percentage completion
-            for i in 0..<step.polyline.pointCount {
-                let coord = coordinates[i]
-                if (i > 0) {
-                    totalDistance += (coord.distance(from: coordinates[i-1]))
-                }
-            }
+        if (simulating) {
+            simulating = false
+            simulateButton.state = NSControl.StateValue.off
+            simulateButton.title = "Start Simulation"
+            self.fromOutlet.isEnabled = true
+            self.toOutlet.isEnabled = true
+            self.generateButton.isEnabled = true
 
-            if (totalDistance > 0) {
-            let stepPoints = step.polyline.points()
+            return
+        } else {
+            simulateButton.state = NSControl.StateValue.on
+            simulateButton.title = "Stop Simulation"
+
+            var totalDuration = 0.0
+            
+            for step in route.steps {
+                
+                var coordinates: [CLLocationCoordinate2D] = Array(repeating: kCLLocationCoordinate2DInvalid, count: step.polyline.pointCount)
+                step.polyline.getCoordinates(&coordinates, range: NSRange(location: 0, length: step.polyline.pointCount))
+                var totalDistance = 0.0
+                
+                // calculate total distance to determine percentage completion
                 for i in 0..<step.polyline.pointCount {
-                    let stepPoint = stepPoints[i]
-                    let pointDistance = stepPoint.distance(to: allSteps.last ?? stepPoint)
-                    let pointDuration = (pointDistance / totalDistance) * (step.distance / route.distance) * route.expectedTravelTime
-                    print("\(i): \(pointDuration) seconds, \(pointDistance)")
-                    allDurations.append(pointDuration)
-                    allSteps.append(stepPoint)
-                    totalDuration += pointDuration
+                    let coord = coordinates[i]
+                    if (i > 0) {
+                        totalDistance += (coord.distance(from: coordinates[i-1]))
+                    }
                 }
+
+                if (totalDistance > 0) {
+                let stepPoints = step.polyline.points()
+                    for i in 0..<step.polyline.pointCount {
+                        let stepPoint = stepPoints[i]
+                        let pointDistance = stepPoint.distance(to: allSteps.last ?? stepPoint)
+                        let pointDuration = (pointDistance / totalDistance) * (step.distance / route.distance) * route.expectedTravelTime
+                        print("\(i): \(pointDuration) seconds, \(pointDistance)")
+                        allDurations.append(pointDuration)
+                        allSteps.append(stepPoint)
+                        totalDuration += pointDuration
+                    }
+                }
+                
+            }
+            print("Total Duration = \(round(totalDuration/60)) for \(allSteps.count) steps")
+            
+            // run simulation on a dedicated thread
+            self.fromOutlet.isEnabled = false
+            self.toOutlet.isEnabled = false
+            self.generateButton.isEnabled = false
+
+            simulationQueue.async{
+                
+                self.simulateMovement()
+                
             }
             
         }
-        print("Total Duration = \(round(totalDuration/60)) for \(allSteps.count) steps")
         
-        // run simulation on a dedicated thread
-        let speedString = speedOutlet.stringValue.replacingOccurrences(of: "x", with: "")
-        let speedValue : Double = Double(speedString) ?? 1.0                       // default to 1X if not convertable
-        simulateButton.state = NSControl.StateValue.on
-        simulateButton.stringValue = "Stop Simulation"
-        simulationQueue.async{
-            
-            self.simulateMovement(stepNum: 0, speedValue: speedValue)
-            
-        }
 
         
     }
     
-    func simulateMovement(stepNum: Int, speedValue: Double) {
+    func simulateMovement() {
         
         print("> simulateMovement")
+        simulating = true
+        stepNum = 0
+        
         for i in stepNum ..< allSteps.count - 1 {
-            let step = allSteps[i]
-            print("moving to step \(i)")
-            DispatchQueue.main.async {
-                self.currentAnnotation.coordinate = step.coordinate
-            }
-            let sleepTime : UInt32 = UInt32(allDurations[i] * 1000000 / speedValue)
             
-            // enhancement: if sleepTime > 1 second, stage the movement between current step and next step
-            usleep(sleepTime)
+            if (simulating) {
+                let step = allSteps[i]
+                print("moving to step \(i)")
+                DispatchQueue.main.async {
+                    self.currentAnnotation.coordinate = step.coordinate
+                    self.currentAnnotation.title = "Step \(i)"
+                }
+                let sleepTime : UInt32 = UInt32(allDurations[i] * 1000000 / speedValue)
+                
+                // enhancement: if sleepTime > 1 second, stage the movement between current step and next step
+                usleep(sleepTime)
+            } else {
+                return
+            }
         }
+        simulating = false
+        return
         
     }
         
@@ -244,6 +290,8 @@ class ViewController: NSViewController {
                     }
                     
                 }
+            } else {        // changed speed
+                assignSpeed()
             }
         }
 
@@ -353,6 +401,8 @@ extension CLLocationCoordinate2D {
 
 class MovableAnnotation: NSObject, MKAnnotation {
     @objc dynamic var coordinate: CLLocationCoordinate2D
+    @objc dynamic var title: String?
+
     //Add your custom code here
     override init() {
         coordinate = CLLocationCoordinate2DMake(0,0)
