@@ -12,6 +12,15 @@
 		BD0B9AAA24CE17B300D0EF96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD0B9AA924CE17B300D0EF96 /* Assets.xcassets */; };
 		BD0B9AAD24CE17B300D0EF96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD0B9AAB24CE17B300D0EF96 /* Main.storyboard */; };
 		BD5E709B24D7A03D00CC6752 /* TODO.txt in Resources */ = {isa = PBXBuildFile; fileRef = BD5E709A24D7A03D00CC6752 /* TODO.txt */; };
+		BD9BA4E624D876B2004E2AC4 /* cli.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* cli.swift */; };
+		BD9BA4E724D876B2004E2AC4 /* coordinate+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* coordinate+extension.swift */; };
+		BD9BA4E824D876B2004E2AC4 /* coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* coordinate.swift */; };
+		BD9BA4E924D876B2004E2AC4 /* errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* errors.swift */; };
+		BD9BA4EB24D876B2004E2AC4 /* notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* notification.swift */; };
+		BD9BA4EC24D876B2004E2AC4 /* query.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* query.swift */; };
+		BD9BA4ED24D876B2004E2AC4 /* result.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* result.swift */; };
+		BD9BA4EE24D876B2004E2AC4 /* simulators.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* simulators.swift */; };
+		BD9BA4EF24D876B2004E2AC4 /* stderr.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* stderr.swift */; };
 		OBJ_34 /* cli.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* cli.swift */; };
 		OBJ_35 /* coordinate+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* coordinate+extension.swift */; };
 		OBJ_36 /* coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* coordinate.swift */; };
@@ -264,6 +273,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD9BA4E624D876B2004E2AC4 /* cli.swift in Sources */,
+				BD9BA4E724D876B2004E2AC4 /* coordinate+extension.swift in Sources */,
+				BD9BA4E824D876B2004E2AC4 /* coordinate.swift in Sources */,
+				BD9BA4E924D876B2004E2AC4 /* errors.swift in Sources */,
+				BD9BA4EB24D876B2004E2AC4 /* notification.swift in Sources */,
+				BD9BA4EC24D876B2004E2AC4 /* query.swift in Sources */,
+				BD9BA4ED24D876B2004E2AC4 /* result.swift in Sources */,
+				BD9BA4EE24D876B2004E2AC4 /* simulators.swift in Sources */,
+				BD9BA4EF24D876B2004E2AC4 /* stderr.swift in Sources */,
 				BD0B9AA824CE17B200D0EF96 /* ViewController.swift in Sources */,
 				BD0B9AA624CE17B200D0EF96 /* AppDelegate.swift in Sources */,
 			);
@@ -342,7 +360,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = "Trip Simulator/Trip_Simulator.entitlements";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = F6X27PB5BH;
@@ -411,7 +429,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = "Trip Simulator/Trip_Simulator.entitlements";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;

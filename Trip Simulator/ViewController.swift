@@ -25,6 +25,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     private var speedValue : Double = 1.0
 
     private var route: MKRoute!
+    private var bootedSimulators : [Simulator] = []
 
     private var boundingRegion: MKCoordinateRegion = MKCoordinateRegion(MKMapRect.world)
     @IBOutlet var mapView: MKMapView!
@@ -53,6 +54,14 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     }
 
 
+    fileprivate func loadBootedSimulators() {
+        do {
+            bootedSimulators = try getBootedSimulators()
+        } catch let error {
+            print(error)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
@@ -228,6 +237,10 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         simulating = true
         stepNum = 0
         
+        if (bootedSimulators.count == 0) {
+            loadBootedSimulators()                  // try once more
+        }
+        
         for i in stepNum ..< allSteps.count - 1 {
             
             if (simulating) {
@@ -237,6 +250,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                     self.currentAnnotation.coordinate = step.coordinate
                     self.currentAnnotation.title = "Step \(i)"
                 }
+                sendToSimulator(coordinate: step.coordinate)
                 let sleepTime : UInt32 = UInt32(allDurations[i] * 1000000 / speedValue)
                 
                 // enhancement: if sleepTime > 1 second, stage the movement between current step and next step
@@ -250,6 +264,14 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         
     }
         
+    func sendToSimulator(coordinate: CLLocationCoordinate2D) {
+        
+        let simulators = bootedSimulators
+        postNotification(for: coordinate, to: simulators.map { $0.udid.uuidString })
+        print("Setting location to \(coordinate.latitude) \(coordinate.longitude)")
+        
+    }
+    
     @objc func textDidEndEditing(_ obj: Notification) {
         
         if obj.object is NSSearchField {

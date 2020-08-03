@@ -1,3 +1,4 @@
+- call set-location api
 - search results selection
 - current annotation icon
 - reset buttons after simulation is done
