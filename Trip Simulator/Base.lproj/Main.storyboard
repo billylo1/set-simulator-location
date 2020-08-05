@@ -753,7 +753,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zwQ-Ze-NW8">
-                                        <rect key="frame" x="785" y="3" width="142" height="32"/>
+                                        <rect key="frame" x="786" y="3" width="141" height="32"/>
                                         <buttonCell key="cell" type="push" title="Generate Route" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="e3m-kR-6qp">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -763,7 +763,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6sK-xc-MOR">
-                                        <rect key="frame" x="931" y="3" width="144" height="32"/>
+                                        <rect key="frame" x="931" y="3" width="143" height="32"/>
                                         <buttonCell key="cell" type="push" title="Start Simulation" alternateTitle="Stop Simulation" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Bc4-nl-WWd">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -777,7 +777,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="70" id="SxE-xu-pin"/>
                                         </constraints>
-                                        <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" title="10x" drawsBackground="YES" numberOfVisibleItems="5" id="UPe-bK-A99">
+                                        <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" enabled="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" title="10x" drawsBackground="YES" numberOfVisibleItems="4" id="UPe-bK-A99">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
