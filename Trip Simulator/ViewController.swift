@@ -23,6 +23,9 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     private var simulating = false
     private var stepNum = 0
     private var speedValue : Double = 1.0
+    
+    private var searchCompleter: MKLocalSearchCompleter?
+    var completerResults: [MKLocalSearchCompletion]?
 
     private var route: MKRoute!
     private var bootedSimulators : [Simulator] = []
@@ -37,6 +40,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     
     @IBOutlet weak var generateButton: NSButton!
     @IBOutlet weak var simulateButton: NSButton!
+    @IBOutlet var tableView: NSTableView!
     
     private var localSearch: MKLocalSearch? {
         willSet {
@@ -75,8 +79,32 @@ class ViewController: NSViewController, NSComboBoxDelegate {
 
         // Do any additional setup after loading the view.
         assignSpeed()
+        tableView.delegate = self
+        tableView.dataSource = self
 
     }
+
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        startProvidingCompletions()
+    }
+
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        stopProvidingCompletions()
+    }
+
+    private func startProvidingCompletions() {
+        searchCompleter = MKLocalSearchCompleter()
+        searchCompleter?.delegate = self
+        searchCompleter?.resultTypes = .pointOfInterest
+        searchCompleter?.region = searchRegion
+    }
+
+    private func stopProvidingCompletions() {
+        searchCompleter = nil
+    }
+    
 
     override func viewDidAppear() {
         super.viewDidAppear()
@@ -415,6 +443,25 @@ extension ViewController: MKMapViewDelegate {
 
 }
 
+extension ViewController: MKLocalSearchCompleterDelegate {
+    
+    /// - Tag: QueryResults
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        // As the user types, new completion suggestions are continuously returned to this method.
+        // Overwrite the existing results, and then refresh the UI with the new results.
+        completerResults = completer.results
+        suggestionTable.reloadData()
+    }
+    
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+        // Handle any errors returned from MKLocalSearchCompleter.
+        if let error = error as NSError? {
+            print("MKLocalSearchCompleter encountered an error: \(error.localizedDescription). The query fragment is: \"\(completer.queryFragment)\"")
+        }
+    }
+}
+
+
 extension CLLocationCoordinate2D {
     //distance in meters, as explained in CLLoactionDistance definition
     func distance(from: CLLocationCoordinate2D) -> CLLocationDistance {
@@ -422,6 +469,66 @@ extension CLLocationCoordinate2D {
         return CLLocation(latitude: latitude, longitude: longitude).distance(from: destination)
     }
 }
+
+// suggestionTableDelegate methods
+
+extension ViewController: NSTableViewDataSource {
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        completerResults?.count ?? 0
+    }
+}
+
+
+extension ViewController: NSTableViewDelegate {
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+
+    }
+}
+extension ViewController {
+    
+    
+    
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var header = NSLocalizedString("SEARCH_RESULTS", comment: "Standard result text")
+        if let city = currentPlacemark?.locality {
+            let templateString = NSLocalizedString("SEARCH_RESULTS_LOCATION", comment: "Search result text with city")
+            header = String(format: templateString, city)
+        }
+        
+        return header
+    }
+
+    /// - Tag: HighlightFragment
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SuggestedCompletionTableViewCell.reuseID, for: indexPath)
+
+        if let suggestion = completerResults?[indexPath.row] {
+            // Each suggestion is a MKLocalSearchCompletion with a title, subtitle, and ranges describing what part of the title
+            // and subtitle matched the current query string. The ranges can be used to apply helpful highlighting of the text in
+            // the completion suggestion that matches the current query fragment.
+            cell.textLabel?.attributedText = createHighlightedString(text: suggestion.title, rangeValues: suggestion.titleHighlightRanges)
+            cell.detailTextLabel?.attributedText = createHighlightedString(text: suggestion.subtitle, rangeValues: suggestion.subtitleHighlightRanges)
+        }
+
+        return cell
+    }
+    
+    private func createHighlightedString(text: String, rangeValues: [NSValue]) -> NSAttributedString {
+        let attributes = [NSAttributedString.Key.backgroundColor: UIColor(named: "suggestionHighlight")! ]
+        let highlightedString = NSMutableAttributedString(string: text)
+        
+        // Each `NSValue` wraps an `NSRange` that can be used as a style attribute's range with `NSAttributedString`.
+        let ranges = rangeValues.map { $0.rangeValue }
+        ranges.forEach { (range) in
+            highlightedString.addAttributes(attributes, range: range)
+        }
+        
+        return highlightedString
+    }
+}
+
+
 
 class MovableAnnotation: NSObject, MKAnnotation {
     @objc dynamic var coordinate: CLLocationCoordinate2D
@@ -432,4 +539,10 @@ class MovableAnnotation: NSObject, MKAnnotation {
         coordinate = CLLocationCoordinate2DMake(0,0)
         super.init()
     }
+}
+
+private class SuggestedCompletionTableCellView: NSTableCellView {
+    
+    static let reuseID = "SuggestedCompletionTableCellViewReuseID"
+    
 }
