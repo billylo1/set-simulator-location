@@ -73,8 +73,8 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         speedOutlet.delegate = self
         fromOutlet.becomeFirstResponder()
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(textDidEndEditing(_:)),
-                                               name: NSSearchField.textDidEndEditingNotification,
+                                               selector: #selector(textDidChange(_:)),
+                                               name: NSSearchField.textDidChangeNotification,
                                                object: nil)
 
         // Do any additional setup after loading the view.
@@ -300,13 +300,19 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         
     }
     
-    @objc func textDidEndEditing(_ obj: Notification) {
+    @objc func textDidChange(_ obj: Notification) {
         
         if obj.object is NSSearchField {
             
             let field = obj.object as! NSSearchField
             if ((field.identifier?.rawValue.contains("Field")) != nil) {
                 print("search for queryString")
+                
+                guard let queryString = field.cell?.stringValue else {
+                    return
+                }
+                searchCompleter?.queryFragment = queryString
+/*
                 let searchRequest = MKLocalSearch.Request()
                 searchRequest.naturalLanguageQuery = field.cell?.stringValue
                 searchRequest.region = boundingRegion
@@ -342,6 +348,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                     }
                     
                 }
+ */
             } else {        // changed speed
                 assignSpeed()
             }
@@ -450,6 +457,9 @@ extension ViewController: MKLocalSearchCompleterDelegate {
         // As the user types, new completion suggestions are continuously returned to this method.
         // Overwrite the existing results, and then refresh the UI with the new results.
         completerResults = completer.results
+        if completerResults!.count > 0 {
+            tableView.isHidden = false
+        }
         tableView.reloadData()
     }
     
@@ -474,8 +484,7 @@ extension CLLocationCoordinate2D {
 
 extension ViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        // completerResults?.count ?? 0
-        return 5
+        return completerResults?.count ?? 0
     }
 }
 
@@ -483,9 +492,18 @@ extension ViewController: NSTableViewDataSource {
 extension ViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: "cell")
-        guard let cellView = tableView.makeView(withIdentifier: cellIdentifier, owner: self) as? NSTableCellView else { return nil }
-        cellView.textField?.integerValue = row
-        return cellView
+        guard let cell = tableView.makeView(withIdentifier: cellIdentifier, owner: self) as? NSTableCellView else { return nil }
+        
+        if let suggestion = completerResults?[row] {
+            // Each suggestion is a MKLocalSearchCompletion with a title, subtitle, and ranges describing what part of the title
+            // and subtitle matched the current query string. The ranges can be used to apply helpful highlighting of the text in
+            // the completion suggestion that matches the current query fragment.
+            cell.textField?.stringValue = suggestion.title
+        } else {
+            cell.textField?.integerValue = row
+        }
+        
+        return cell
     }
 }
 
