@@ -98,7 +98,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         searchCompleter = MKLocalSearchCompleter()
         searchCompleter?.delegate = self
         searchCompleter?.resultTypes = .pointOfInterest
-        searchCompleter?.region = searchRegion
+        // searchCompleter?.region = searchRegion
     }
 
     private func stopProvidingCompletions() {
@@ -450,7 +450,7 @@ extension ViewController: MKLocalSearchCompleterDelegate {
         // As the user types, new completion suggestions are continuously returned to this method.
         // Overwrite the existing results, and then refresh the UI with the new results.
         completerResults = completer.results
-        suggestionTable.reloadData()
+        tableView.reloadData()
     }
     
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
@@ -474,31 +474,27 @@ extension CLLocationCoordinate2D {
 
 extension ViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        completerResults?.count ?? 0
+        // completerResults?.count ?? 0
+        return 5
     }
 }
 
 
 extension ViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-
+        let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: "cell")
+        guard let cellView = tableView.makeView(withIdentifier: cellIdentifier, owner: self) as? NSTableCellView else { return nil }
+        cellView.textField?.integerValue = row
+        return cellView
     }
 }
+
+/*
 extension ViewController {
     
     
     
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        var header = NSLocalizedString("SEARCH_RESULTS", comment: "Standard result text")
-        if let city = currentPlacemark?.locality {
-            let templateString = NSLocalizedString("SEARCH_RESULTS_LOCATION", comment: "Search result text with city")
-            header = String(format: templateString, city)
-        }
-        
-        return header
-    }
-
     /// - Tag: HighlightFragment
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SuggestedCompletionTableViewCell.reuseID, for: indexPath)
@@ -527,7 +523,7 @@ extension ViewController {
         return highlightedString
     }
 }
-
+*/
 
 
 class MovableAnnotation: NSObject, MKAnnotation {
