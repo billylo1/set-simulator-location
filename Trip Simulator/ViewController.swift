@@ -41,7 +41,18 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     @IBOutlet weak var generateButton: NSButton!
     @IBOutlet weak var simulateButton: NSButton!
     @IBOutlet var tableView: NSTableView!
+    @IBOutlet var tableScrollView: NSScrollView!
     
+    @IBAction func tableAction(_ sender: Any) {
+
+        let tableView = sender as! NSTableView
+        
+        if let suggestion = completerResults?[tableView.selectedRow] {
+            fromOutlet.stringValue = suggestion.title
+            tableScrollView.isHidden = true
+        }
+        
+    }
     private var localSearch: MKLocalSearch? {
         willSet {
             // Clear the results and cancel the currently running local search before starting a new search.
@@ -87,6 +98,12 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     override func viewWillAppear() {
         super.viewWillAppear()
         startProvidingCompletions()
+
+    }
+
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        requestLocation()
     }
 
     override func viewDidDisappear() {
@@ -97,24 +114,10 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     private func startProvidingCompletions() {
         searchCompleter = MKLocalSearchCompleter()
         searchCompleter?.delegate = self
-        searchCompleter?.resultTypes = .pointOfInterest
-        // searchCompleter?.region = searchRegion
     }
 
     private func stopProvidingCompletions() {
         searchCompleter = nil
-    }
-    
-
-    override func viewDidAppear() {
-        super.viewDidAppear()
-        requestLocation()
-    }
-
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
     }
     
     @objc func comboBoxSelectionDidChange(_ notification: Notification) {
@@ -135,7 +138,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         
         print("Route button pressed")
         
-        if (self.route != nil) {        // clear overlay
+        if self.route != nil {        // clear overlay
             self.mapView.removeOverlay(self.route.polyline)
         }
 
@@ -248,15 +251,9 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             self.generateButton.isEnabled = false
 
             simulationQueue.async{
-                
                 self.simulateMovement()
-                
             }
-            
         }
-        
-
-        
     }
     
     func simulateMovement() {
@@ -306,7 +303,8 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             
             let field = obj.object as! NSSearchField
             if ((field.identifier?.rawValue.contains("Field")) != nil) {
-                print("search for queryString")
+                
+                // print("search for queryString")
                 
                 guard let queryString = field.cell?.stringValue else {
                     return
@@ -484,7 +482,12 @@ extension CLLocationCoordinate2D {
 
 extension ViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return completerResults?.count ?? 0
+        
+        let rowCount = completerResults?.count ?? 0
+        if (rowCount > 0) {
+            tableScrollView.isHidden = false
+        }
+        return rowCount
     }
 }
 

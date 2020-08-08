@@ -1,10 +1,12 @@
 //done - call set-location api
-- search results selection
+//done - search results selection
+//done - app icon
+
+- apply typeahead logic to ToOutlet as well
 - current annotation icon
 - reset buttons after simulation is done
 - don't ask for permission every time
 - set region correctly based on route bounding box
 - status bar to show step # out of total # of steps
 - if (sleepTime > 1), break up updates
-- app icon
 

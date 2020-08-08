@@ -713,8 +713,9 @@
                             <mapView mapType="standard" pitchEnabled="NO" showsUserLocation="YES" showsScale="YES" showsTraffic="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eTZ-8f-twd">
                                 <rect key="frame" x="0.0" y="0.0" width="1164" height="230"/>
                             </mapView>
-                            <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaP-8T-f19">
+                            <scrollView hidden="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="eaP-8T-f19">
                                 <rect key="frame" x="15" y="80" width="300" height="150"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" id="NZq-Lx-a9c">
                                     <rect key="frame" x="1" y="1" width="298" height="148"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -759,13 +760,12 @@
                                                     </prototypeCellViews>
                                                 </tableColumn>
                                             </tableColumns>
+                                            <connections>
+                                                <action selector="tableAction:" target="XfG-lQ-9wD" id="uss-bT-RNO"/>
+                                            </connections>
                                         </tableView>
                                     </subviews>
                                 </clipView>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="YS9-3X-82e"/>
-                                    <constraint firstAttribute="height" constant="150" id="hBV-57-cfn"/>
-                                </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="ZVh-6F-cXL">
                                     <rect key="frame" x="1" y="118" width="298" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
@@ -788,9 +788,6 @@
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </searchFieldCell>
-                                                <connections>
-                                                    <action selector="fromAction:" target="XfG-lQ-9wD" id="iXK-k5-CvO"/>
-                                                </connections>
                                             </searchField>
                                             <searchField identifier="toField" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOj-kn-rde" userLabel="To">
                                                 <rect key="frame" x="391" y="9" width="383" height="22"/>
@@ -886,7 +883,7 @@
                         <outlet property="mapView" destination="eTZ-8f-twd" id="U1L-uo-rqx"/>
                         <outlet property="simulateButton" destination="6sK-xc-MOR" id="RKj-7B-ffT"/>
                         <outlet property="speedOutlet" destination="HOu-sc-4Ln" id="3U2-BK-Z7b"/>
-                        <outlet property="suggestionTextCell" destination="uIe-CT-o2E" id="hph-sS-jil"/>
+                        <outlet property="tableScrollView" destination="eaP-8T-f19" id="cNe-Nz-07y"/>
                         <outlet property="tableView" destination="cvn-SP-TeJ" id="Khr-FM-sT5"/>
                         <outlet property="toOutlet" destination="GOj-kn-rde" id="2Ld-eC-u1H"/>
                     </connections>
