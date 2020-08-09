@@ -23,7 +23,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     private var simulating = false
     private var stepNum = 0
     private var speedValue : Double = 1.0
-    private var fromSearchActive : Bool = false
+    private var fromSearchActive : Bool = true
     
     private var searchCompleter: MKLocalSearchCompleter?
     var completerResults: [MKLocalSearchCompletion]?
@@ -323,6 +323,8 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             if ((field.identifier?.rawValue.contains("Field")) != nil) {
                 
                 // print("search for queryString")
+                
+                fromSearchActive = (field.identifier!.rawValue == "fromField")        // so the other code can tell we are working on from or to field
                 
                 guard let queryString = field.cell?.stringValue else {
                     return
