@@ -788,6 +788,9 @@
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </searchFieldCell>
+                                                <connections>
+                                                    <action selector="searchFieldAction:" target="XfG-lQ-9wD" id="bXW-Tf-tPi"/>
+                                                </connections>
                                             </searchField>
                                             <searchField identifier="toField" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOj-kn-rde" userLabel="To">
                                                 <rect key="frame" x="391" y="9" width="383" height="22"/>
@@ -796,6 +799,9 @@
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </searchFieldCell>
+                                                <connections>
+                                                    <action selector="searchFieldAction:" target="XfG-lQ-9wD" id="0eU-TN-QaZ"/>
+                                                </connections>
                                             </searchField>
                                         </subviews>
                                         <constraints>

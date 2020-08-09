@@ -23,6 +23,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     private var simulating = false
     private var stepNum = 0
     private var speedValue : Double = 1.0
+    private var fromSearchActive : Bool = false
     
     private var searchCompleter: MKLocalSearchCompleter?
     var completerResults: [MKLocalSearchCompletion]?
@@ -46,11 +47,15 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     @IBAction func tableAction(_ sender: Any) {
 
         let tableView = sender as! NSTableView
+        let suggestion : MKLocalSearchCompletion? = completerResults?[tableView.selectedRow]
         
-        if let suggestion = completerResults?[tableView.selectedRow] {
-            fromOutlet.stringValue = suggestion.title
-            tableScrollView.isHidden = true
+        if (fromSearchActive) {
+            fromOutlet.stringValue = suggestion!.title
+        } else {
+            toOutlet.stringValue = suggestion!.title
         }
+        
+        tableScrollView.isHidden = true
         
     }
     private var localSearch: MKLocalSearch? {
@@ -297,6 +302,19 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         
     }
     
+    // if user switches between from and to search fields, update searchCompleter
+    
+    @IBAction func searchFieldAction(_ sender: Any) {
+        
+        print("searchFieldAction")
+        let field = sender as! NSSearchField
+        guard let queryString = field.cell?.stringValue else {
+            return
+        }
+        searchCompleter?.queryFragment = queryString
+    }
+    
+    
     @objc func textDidChange(_ obj: Notification) {
         
         if obj.object is NSSearchField {
@@ -339,13 +357,14 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                         }
                         outlet?.stringValue = item.placemark.name!
                     }
-                    if (self.fromPlacemark != nil) && (self.toPlacemark != nil) {
-                        self.generateButton.isEnabled = true
-                    } else {
-                        self.generateButton.isEnabled = false
-                    }
-                    
                 }
+                 if (self.fromPlacemark != nil) && (self.toPlacemark != nil) {
+                     self.generateButton.isEnabled = true
+                 } else {
+                     self.generateButton.isEnabled = false
+                 }
+                 
+
  */
             } else {        // changed speed
                 assignSpeed()
@@ -481,6 +500,7 @@ extension CLLocationCoordinate2D {
 // suggestionTableDelegate methods
 
 extension ViewController: NSTableViewDataSource {
+    
     func numberOfRows(in tableView: NSTableView) -> Int {
         
         let rowCount = completerResults?.count ?? 0
@@ -494,6 +514,7 @@ extension ViewController: NSTableViewDataSource {
 
 extension ViewController: NSTableViewDelegate {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        
         let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: "cell")
         guard let cell = tableView.makeView(withIdentifier: cellIdentifier, owner: self) as? NSTableCellView else { return nil }
         
@@ -502,8 +523,6 @@ extension ViewController: NSTableViewDelegate {
             // and subtitle matched the current query string. The ranges can be used to apply helpful highlighting of the text in
             // the completion suggestion that matches the current query fragment.
             cell.textField?.stringValue = suggestion.title
-        } else {
-            cell.textField?.integerValue = row
         }
         
         return cell
