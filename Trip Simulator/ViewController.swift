@@ -23,7 +23,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     private var simulating = false
     private var stepNum = 0
     private var speedValue : Double = 1.0
-    private var fromSearchActive : Bool = true
+    private var fromSearchFieldActive : Bool = true
     
     private var searchCompleter: MKLocalSearchCompleter?
     var completerResults: [MKLocalSearchCompletion]?
@@ -49,7 +49,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         let tableView = sender as! NSTableView
         let suggestion : MKLocalSearchCompletion? = completerResults?[tableView.selectedRow]
         
-        if (fromSearchActive) {
+        if fromSearchFieldActive {
             fromOutlet.stringValue = suggestion!.title
         } else {
             toOutlet.stringValue = suggestion!.title
@@ -314,6 +314,35 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         searchCompleter?.queryFragment = queryString
     }
     
+//    - (BOOL)isTextFieldInFocus:(NSTextField *)textField
+//    {
+//        BOOL inFocus = NO;
+//
+//        inFocus = ([[[textField window] firstResponder] isKindOfClass:[NSTextView class]]
+//                   && [[textField window] fieldEditor:NO forObject:nil]!=nil
+//                   && [textField isEqualTo:(id)[(NSTextView *)[[textField window] firstResponder]delegate]]);
+//
+//        return inFocus;
+//    }
+// https://stackoverflow.com/a/45851169/2789065
+//
+    
+    func isTextFieldInFocus(_ textField: NSTextField) -> Bool {
+        
+        var inFocus : Bool! = false
+        inFocus = (textField.window?.firstResponder?.isKind(of: NSTextView.self))!
+            && (textField.window?.fieldEditor(false, for: nil) != nil)
+            && (textField == ((textField.window?.firstResponder as! NSTextView).delegate as! NSTextField))
+        
+        return inFocus
+        
+    }
+    
+    func fromSearchFieldActiveTest() -> Bool {
+        
+        return isTextFieldInFocus(self.fromOutlet)
+        
+    }
     
     @objc func textDidChange(_ obj: Notification) {
         
@@ -324,50 +353,13 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                 
                 // print("search for queryString")
                 
-                fromSearchActive = (field.identifier!.rawValue == "fromField")        // so the other code can tell we are working on from or to field
+                fromSearchFieldActive = (field.identifier!.rawValue == "fromField")        // so the other code can tell we are working on from or to field
                 
                 guard let queryString = field.cell?.stringValue else {
                     return
                 }
                 searchCompleter?.queryFragment = queryString
-/*
-                let searchRequest = MKLocalSearch.Request()
-                searchRequest.naturalLanguageQuery = field.cell?.stringValue
-                searchRequest.region = boundingRegion
-                
-                localSearch = MKLocalSearch(request: searchRequest)
-                localSearch?.start { [unowned self] (response, error) in
-                    guard error == nil else {
-                        self.displaySearchError(error)
-                        return
-                    }
-                    
-                    self.places = response?.mapItems
-                    let fieldId = (field.identifier?.rawValue ?? "") as String
-                    let items = response?.mapItems;
-                    if (items!.count > 0) {
-                        let item = items![0]
-                        var outlet : NSSearchField!
 
-                        if (fieldId == "toField") {
-                            outlet = self.toOutlet
-                            self.toPlacemark = item.placemark
-                        } else {
-                            outlet = self.fromOutlet
-                            self.fromPlacemark = item.placemark
-                            self.toOutlet.becomeFirstResponder()
-                        }
-                        outlet?.stringValue = item.placemark.name!
-                    }
-                }
-                 if (self.fromPlacemark != nil) && (self.toPlacemark != nil) {
-                     self.generateButton.isEnabled = true
-                 } else {
-                     self.generateButton.isEnabled = false
-                 }
-                 
-
- */
             } else {        // changed speed
                 assignSpeed()
             }
@@ -387,6 +379,38 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         }
     }
     
+    func lookupAndAddPlacemark(_ title: String) {
+        
+        let searchRequest = MKLocalSearch.Request()
+        searchRequest.naturalLanguageQuery = title
+        // searchRequest.region = boundingRegion
+        
+        localSearch = MKLocalSearch(request: searchRequest)
+        localSearch?.start { [unowned self] (response, error) in
+            guard error == nil else {
+                self.displaySearchError(error)
+                return
+            }
+            
+            self.places = response?.mapItems
+            let items = response?.mapItems;
+            if (items!.count > 0) {
+                let item = items![0]
+                if (!self.fromSearchFieldActive) {
+                    self.toPlacemark = item.placemark
+                } else {
+                    self.fromPlacemark = item.placemark
+                    self.toOutlet.becomeFirstResponder()
+                }
+            }
+            if (self.fromPlacemark != nil) && (self.toPlacemark != nil) {
+                self.generateButton.isEnabled = true
+            } else {
+                self.generateButton.isEnabled = false
+            }
+        }
+        
+    }
     
 }
 
@@ -488,6 +512,7 @@ extension ViewController: MKLocalSearchCompleterDelegate {
             print("MKLocalSearchCompleter encountered an error: \(error.localizedDescription). The query fragment is: \"\(completer.queryFragment)\"")
         }
     }
+    
 }
 
 
@@ -525,10 +550,25 @@ extension ViewController: NSTableViewDelegate {
             // and subtitle matched the current query string. The ranges can be used to apply helpful highlighting of the text in
             // the completion suggestion that matches the current query fragment.
             cell.textField?.stringValue = suggestion.title
+            
         }
         
         return cell
     }
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        
+        let table = notification.object as! NSTableView
+
+        if let suggestion = completerResults?[table.selectedRow] {
+            // Each suggestion is a MKLocalSearchCompletion with a title, subtitle, and ranges describing what part of the title
+            // and subtitle matched the current query string. The ranges can be used to apply helpful highlighting of the text in
+            // the completion suggestion that matches the current query fragment.
+            lookupAndAddPlacemark(suggestion.title)
+        }
+    }
+
+    
 }
 
 /*

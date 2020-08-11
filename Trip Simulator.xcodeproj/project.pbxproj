@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD069FDF24E218F000B6D5F7 /* Logic.m in Sources */ = {isa = PBXBuildFile; fileRef = BD069FDE24E218F000B6D5F7 /* Logic.m */; };
 		BD0B9AA624CE17B200D0EF96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0B9AA524CE17B200D0EF96 /* AppDelegate.swift */; };
 		BD0B9AA824CE17B200D0EF96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0B9AA724CE17B200D0EF96 /* ViewController.swift */; };
 		BD0B9AAA24CE17B300D0EF96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD0B9AA924CE17B300D0EF96 /* Assets.xcassets */; };
@@ -48,6 +49,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BD069FDE24E218F000B6D5F7 /* Logic.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Logic.m; sourceTree = "<group>"; };
 		BD0B9AA324CE17B200D0EF96 /* Trip Simulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Trip Simulator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD0B9AA524CE17B200D0EF96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD0B9AA724CE17B200D0EF96 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				BD0B9AAE24CE17B300D0EF96 /* Info.plist */,
 				BD0B9AAF24CE17B300D0EF96 /* Trip_Simulator.entitlements */,
 				BD5E709A24D7A03D00CC6752 /* TODO.txt */,
+				BD069FDE24E218F000B6D5F7 /* Logic.m */,
 			);
 			path = "Trip Simulator";
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				TargetAttributes = {
 					BD0B9AA224CE17B200D0EF96 = {
 						CreatedOnToolsVersion = 11.6;
+						LastSwiftMigration = 1160;
 					};
 				};
 			};
@@ -273,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD069FDF24E218F000B6D5F7 /* Logic.m in Sources */,
 				BD9BA4E624D876B2004E2AC4 /* cli.swift in Sources */,
 				BD9BA4E724D876B2004E2AC4 /* coordinate+extension.swift in Sources */,
 				BD9BA4E824D876B2004E2AC4 /* coordinate.swift in Sources */,
@@ -391,6 +396,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.evergreenlabs.Trip-Simulator";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
