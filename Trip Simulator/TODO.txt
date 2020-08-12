@@ -3,11 +3,12 @@
 //done - app icon
 
 //done - apply typeahead logic to ToOutlet as well
-- move suggestion box to directly below active search field
-- current annotation icon
-- reset buttons after simulation is done
+//done - move suggestion box to directly below active search field
 //done - don't ask for permission every time
+
 - set region correctly based on route bounding box
-- status bar to show step # out of total # of steps
+- reset buttons after simulation is done
 - if (sleepTime > 1), break up updates
+- status bar to show step # out of total # of steps
+- current annotation icon
 

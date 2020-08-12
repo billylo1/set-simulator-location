@@ -352,8 +352,23 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             if ((field.identifier?.rawValue.contains("Field")) != nil) {
                 
                 // print("search for queryString")
+                let newSearchFieldActive: Bool = (field.identifier!.rawValue == "fromField")
                 
-                fromSearchFieldActive = (field.identifier!.rawValue == "fromField")        // so the other code can tell we are working on from or to field
+                if (fromSearchFieldActive != newSearchFieldActive) {
+                    
+                    // switch suggestion box location
+                    let currentY : CGFloat = tableScrollView.frame.minY
+                    let fromX : CGFloat = fromOutlet.frame.minX
+                    let toX : CGFloat = toOutlet.frame.minX
+
+                    if (newSearchFieldActive) {
+                        tableScrollView.setFrameOrigin(NSPoint.init(x: fromX, y: currentY))
+                    } else {
+                        tableScrollView.setFrameOrigin(NSPoint.init(x: toX, y: currentY))
+                    }
+
+                }
+                fromSearchFieldActive = newSearchFieldActive       // so the other code can tell we are working on from or to field
                 
                 guard let queryString = field.cell?.stringValue else {
                     return
@@ -544,7 +559,7 @@ extension ViewController: NSTableViewDelegate {
         
         let cellIdentifier = NSUserInterfaceItemIdentifier(rawValue: "cell")
         guard let cell = tableView.makeView(withIdentifier: cellIdentifier, owner: self) as? NSTableCellView else { return nil }
-        
+                
         if let suggestion = completerResults?[row] {
             // Each suggestion is a MKLocalSearchCompletion with a title, subtitle, and ranges describing what part of the title
             // and subtitle matched the current query string. The ranges can be used to apply helpful highlighting of the text in
