@@ -14,8 +14,8 @@
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "351"
-            endingLineNumber = "351"
+            startingLineNumber = "390"
+            endingLineNumber = "390"
             landmarkName = "textDidChange(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,25 +94,9 @@
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "496"
-            endingLineNumber = "496"
+            startingLineNumber = "535"
+            endingLineNumber = "535"
             landmarkName = "mapView(_:rendererFor:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7E4AD734-234C-4097-BB3E-993C58BB76B2"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Trip Simulator/ViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
-            landmarkName = "simulateMovement()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -126,8 +110,8 @@
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "349"
-            endingLineNumber = "349"
+            startingLineNumber = "388"
+            endingLineNumber = "388"
             landmarkName = "textDidChange(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -158,8 +142,8 @@
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "352"
-            endingLineNumber = "352"
+            startingLineNumber = "391"
+            endingLineNumber = "391"
             landmarkName = "textDidChange(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -184,14 +168,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "3AE2265A-90F1-4391-8BEF-DFAE6EC729B0"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
             landmarkName = "sendToSimulator(coordinate:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +190,8 @@
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "561"
-            endingLineNumber = "561"
+            startingLineNumber = "607"
+            endingLineNumber = "607"
             landmarkName = "tableView(_:viewFor:row:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -222,8 +206,8 @@
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "519"
-            endingLineNumber = "519"
+            startingLineNumber = "565"
+            endingLineNumber = "565"
             landmarkName = "completerDidUpdateResults(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -238,8 +222,8 @@
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "518"
-            endingLineNumber = "518"
+            startingLineNumber = "564"
+            endingLineNumber = "564"
             landmarkName = "completerDidUpdateResults(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -254,8 +238,8 @@
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "563"
-            endingLineNumber = "563"
+            startingLineNumber = "609"
+            endingLineNumber = "609"
             landmarkName = "tableView(_:viewFor:row:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -270,8 +254,8 @@
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "560"
-            endingLineNumber = "560"
+            startingLineNumber = "606"
+            endingLineNumber = "606"
             landmarkName = "tableView(_:viewFor:row:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -286,8 +270,8 @@
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
+            startingLineNumber = "348"
+            endingLineNumber = "348"
             landmarkName = "searchFieldAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -318,8 +302,8 @@
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
+            startingLineNumber = "394"
+            endingLineNumber = "394"
             landmarkName = "textDidChange(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -334,8 +318,8 @@
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "399"
-            endingLineNumber = "399"
+            startingLineNumber = "438"
+            endingLineNumber = "438"
             landmarkName = "lookupAndAddPlacemark(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -344,15 +328,31 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "EF9632AF-7BD1-4E6F-B30E-069C9A877EE4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Trip Simulator/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "406"
+            endingLineNumber = "406"
+            landmarkName = "textDidChange(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1A6D1340-F052-4AAD-A103-F3882D790998"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Trip Simulator/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "367"
-            endingLineNumber = "367"
-            landmarkName = "textDidChange(_:)"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
+            landmarkName = "simulateMovement()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

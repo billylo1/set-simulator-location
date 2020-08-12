@@ -264,6 +264,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     func simulateMovement() {
         
         print("> simulateMovement")
+        let refreshInterval : Double = 1.0
         simulating = true
         stepNum = 0
         
@@ -274,31 +275,69 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         for i in stepNum ..< allSteps.count - 1 {
             
             if (simulating) {
-                let step = allSteps[i]
                 print("moving to step \(i)")
-                DispatchQueue.main.async {
-                    self.currentAnnotation.coordinate = step.coordinate
-                    self.currentAnnotation.title = "Step \(i)"
-                }
-                sendToSimulator(coordinate: step.coordinate)
-                let sleepTime : UInt32 = UInt32(allDurations[i] * 1000000 / speedValue)
+                let step = allSteps[i]
+                var sleepTime : Double = allDurations[i] / speedValue         // in seconds
+                var substep = 0
+                let totalSubStep : Int = Int(floor(sleepTime / refreshInterval))
+                var simulationCoordinate : CLLocationCoordinate2D
+
+                repeat {
+                    print("Step \(i).\(substep)")
+
+                    if (totalSubStep == 0) {
+                        simulationCoordinate = step.coordinate
+                    } else {
+                        if i < (allSteps.count - 1) {
+                            let dLat : Double = allSteps[i+1].coordinate.latitude - step.coordinate.latitude
+                            let dLng : Double = allSteps[i+1].coordinate.longitude - step.coordinate.longitude
+                            let simulationLat : Double = step.coordinate.latitude + (dLat * Double(substep) / Double(totalSubStep))
+                            let simulationLng : Double = step.coordinate.longitude + (dLng * Double(substep) / Double(totalSubStep))
+                            simulationCoordinate = CLLocationCoordinate2DMake(simulationLat, simulationLng)
+                            print("pre-main: \(simulationCoordinate)")
+                        } else {
+                            simulationCoordinate = step.coordinate
+                        }
+                    }
+
+                    DispatchQueue.main.async {
+                        self.sendToSimulator(coordinate: simulationCoordinate)
+                    }
+                    if substep == totalSubStep {
+                        usleep(UInt32(sleepTime * 1e6))
+                    } else {
+                        usleep(UInt32(refreshInterval * 1e6))
+                    }
+                    sleepTime -= refreshInterval
+                    substep += 1
+                    
+                } while (substep <= totalSubStep)
                 
-                // enhancement: if sleepTime > 1 second, stage the movement between current step and next step
-                usleep(sleepTime)
             } else {
                 return
             }
         }
         simulating = false
+        
+        //re-enable ubtton buttons
+        DispatchQueue.main.async {
+            self.simulateButton.isEnabled = true
+        }
+
+        
+        
         return
         
     }
+    
         
     func sendToSimulator(coordinate: CLLocationCoordinate2D) {
         
+        self.currentAnnotation.coordinate = coordinate
+
         let simulators = bootedSimulators
         postNotification(for: coordinate, to: simulators.map { $0.udid.uuidString })
-        print("Setting location to \(coordinate.latitude) \(coordinate.longitude)")
+        // print("Setting location to \(coordinate.latitude) \(coordinate.longitude)")
         
     }
     
@@ -366,9 +405,9 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                     } else {
                         tableScrollView.setFrameOrigin(NSPoint.init(x: toX, y: currentY))
                     }
+                    fromSearchFieldActive = newSearchFieldActive       // so the other code can tell we are working on from or to field
 
                 }
-                fromSearchFieldActive = newSearchFieldActive       // so the other code can tell we are working on from or to field
                 
                 guard let queryString = field.cell?.stringValue else {
                     return
@@ -474,6 +513,7 @@ extension ViewController: CLLocationManagerDelegate {
         
         let region = MKCoordinateRegion( center: location.coordinate, latitudinalMeters: CLLocationDistance(exactly: 5000)!, longitudinalMeters: CLLocationDistance(exactly: 5000)!)
         mapView.setRegion(mapView.regionThatFits(region), animated: true)
+        searchCompleter?.region = region
 
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(location) { (placemark, error) in
@@ -481,7 +521,6 @@ extension ViewController: CLLocationManagerDelegate {
             
             self.currentLocation = placemark?.first
             self.boundingRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 12_000, longitudinalMeters: 12_000)
-            // self.suggestionController.updatePlacemark(self.currentPlacemark, boundingRegion: self.boundingRegion)
         }
     }
     
@@ -497,11 +536,18 @@ extension ViewController: MKMapViewDelegate {
             // draw the track
             let polyLine = overlay
             let polyLineRenderer = MKPolylineRenderer(overlay: polyLine)
+            
+            // set region https://stackoverflow.com/a/32013953/2789065
+            
+            let mapRect = MKPolygon(points: polyLineRenderer.polyline.points(), count: polyLineRenderer.polyline.pointCount)
+            mapView.setVisibleMapRect(mapRect.boundingMapRect, edgePadding: NSEdgeInsets(top: 50.0,left: 50.0,bottom: 50.0,right: 50.0), animated: true)
+
             polyLineRenderer.strokeColor = NSColor.blue
             polyLineRenderer.lineWidth = 3.0
 
             return polyLineRenderer
         }
+
 
         return MKPolylineRenderer()
     }
