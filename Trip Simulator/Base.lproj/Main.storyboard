@@ -707,21 +707,21 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Trip_Simulator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="1164" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1164" height="310"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <mapView mapType="standard" pitchEnabled="NO" showsUserLocation="YES" showsScale="YES" showsTraffic="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eTZ-8f-twd">
-                                <rect key="frame" x="0.0" y="0.0" width="1164" height="230"/>
+                                <rect key="frame" x="0.0" y="20" width="1164" height="250"/>
                             </mapView>
                             <scrollView hidden="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="eaP-8T-f19">
-                                <rect key="frame" x="15" y="80" width="300" height="150"/>
+                                <rect key="frame" x="15" y="80" width="300" height="190"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <clipView key="contentView" id="NZq-Lx-a9c">
-                                    <rect key="frame" x="1" y="1" width="298" height="148"/>
+                                    <rect key="frame" x="1" y="1" width="298" height="188"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="cvn-SP-TeJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="298" height="148"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="298" height="188"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -740,11 +740,11 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="cell" id="mqa-Iw-J7K">
-                                                            <rect key="frame" x="1" y="1" width="295" height="17"/>
+                                                            <rect key="frame" x="1" y="1" width="40" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BpI-hV-a2B">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="295" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="EnY-z2-Pp0">
                                                                         <font key="font" metaFont="system"/>
@@ -767,7 +767,7 @@
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="ZVh-6F-cXL">
-                                    <rect key="frame" x="1" y="118" width="298" height="16"/>
+                                    <rect key="frame" x="1" y="133" width="41" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Ud7-6N-24d">
@@ -776,7 +776,7 @@
                                 </scroller>
                             </scrollView>
                             <stackView distribution="equalSpacing" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zkz-st-hQv" userLabel="RoutingView">
-                                <rect key="frame" x="0.0" y="230" width="1164" height="40"/>
+                                <rect key="frame" x="0.0" y="270" width="1164" height="40"/>
                                 <subviews>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OWx-dQ-ITi" userLabel="FromToView">
                                         <rect key="frame" x="0.0" y="0.0" width="774" height="40"/>
@@ -871,16 +871,30 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="n1u-2Y-Kvf" userLabel="StatusLabel">
+                                <rect key="frame" x="-2" y="0.0" width="1168" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="gRU-cd-v5b"/>
+                                </constraints>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Ready" id="Kn8-mP-5AO">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="eTZ-8f-twd" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="6Wx-JW-OCB"/>
-                            <constraint firstAttribute="trailing" secondItem="eTZ-8f-twd" secondAttribute="trailing" id="BP7-fu-1Y9"/>
+                            <constraint firstItem="eTZ-8f-twd" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="0kN-ch-vRD"/>
+                            <constraint firstItem="n1u-2Y-Kvf" firstAttribute="top" secondItem="eTZ-8f-twd" secondAttribute="bottom" id="5Ui-3F-NaM"/>
                             <constraint firstItem="eaP-8T-f19" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="15" id="EHB-bs-RnD"/>
                             <constraint firstItem="eTZ-8f-twd" firstAttribute="top" secondItem="Zkz-st-hQv" secondAttribute="bottom" id="JCg-3T-F9y"/>
+                            <constraint firstItem="n1u-2Y-Kvf" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="LsB-Y7-mCR"/>
                             <constraint firstItem="eaP-8T-f19" firstAttribute="top" secondItem="Zkz-st-hQv" secondAttribute="bottom" id="MfN-4o-rob"/>
                             <constraint firstItem="Zkz-st-hQv" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="T2n-Pp-A99"/>
+                            <constraint firstAttribute="bottom" secondItem="n1u-2Y-Kvf" secondAttribute="bottom" id="hVB-gz-iJN"/>
+                            <constraint firstAttribute="trailing" secondItem="eTZ-8f-twd" secondAttribute="trailing" id="i4p-UY-hMB"/>
                             <constraint firstItem="Zkz-st-hQv" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="iNc-cx-c6c"/>
-                            <constraint firstAttribute="bottom" secondItem="eTZ-8f-twd" secondAttribute="bottom" id="vXO-yC-UCK"/>
+                            <constraint firstAttribute="trailing" secondItem="n1u-2Y-Kvf" secondAttribute="trailing" id="jB3-LA-jg1"/>
                             <constraint firstAttribute="trailing" secondItem="Zkz-st-hQv" secondAttribute="trailing" id="xHr-Cr-p1O"/>
                         </constraints>
                     </view>
@@ -890,6 +904,7 @@
                         <outlet property="mapView" destination="eTZ-8f-twd" id="U1L-uo-rqx"/>
                         <outlet property="simulateButton" destination="6sK-xc-MOR" id="RKj-7B-ffT"/>
                         <outlet property="speedOutlet" destination="HOu-sc-4Ln" id="3U2-BK-Z7b"/>
+                        <outlet property="statusOutlet" destination="n1u-2Y-Kvf" id="inG-uc-3kI"/>
                         <outlet property="tableScrollView" destination="eaP-8T-f19" id="cNe-Nz-07y"/>
                         <outlet property="tableView" destination="cvn-SP-TeJ" id="Khr-FM-sT5"/>
                         <outlet property="toOutlet" destination="GOj-kn-rde" id="2Ld-eC-u1H"/>

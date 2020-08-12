@@ -43,6 +43,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     @IBOutlet weak var simulateButton: NSButton!
     @IBOutlet var tableView: NSTableView!
     @IBOutlet var tableScrollView: NSScrollView!
+    @IBOutlet var statusOutlet: NSTextField!
     
     @IBAction func tableAction(_ sender: Any) {
 
@@ -75,6 +76,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
 
 
     fileprivate func loadBootedSimulators() {
+        
         do {
             bootedSimulators = try getBootedSimulators()
         } catch let error {
@@ -173,6 +175,8 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         // Calculate the direction
         let directions = MKDirections(request: directionRequest)
         
+        statusOutlet.stringValue = "Generating route..."
+
         directions.calculate {
             (response, error) -> Void in
             
@@ -186,9 +190,15 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             }
             
             self.route = response.routes[0]
-            self.mapView.addOverlay(self.route.polyline)
-            self.simulateButton.isEnabled = true
-            self.speedOutlet.isEnabled = true
+            
+            DispatchQueue.main.async {
+                self.mapView.addOverlay(self.route.polyline)
+                self.simulateButton.isEnabled = true
+                self.speedOutlet.isEnabled = true
+                let durationInMin = round(self.route.expectedTravelTime / 60)
+                self.statusOutlet.stringValue = "Route generated. Trip duration = \(durationInMin) min."
+                self.simulateButton.isHighlighted = true
+            }
 
         }
 
@@ -206,6 +216,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             self.fromOutlet.isEnabled = true
             self.toOutlet.isEnabled = true
             self.generateButton.isEnabled = true
+            self.simulateButton.isHighlighted = false
 
             return
         } else {
@@ -263,7 +274,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         stepNum = 0
         
         if (bootedSimulators.count == 0) {
-            loadBootedSimulators()                  // try once more
+            self.loadBootedSimulators()
         }
         
         for i in stepNum ..< allSteps.count - 1 {
@@ -277,7 +288,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                 var simulationCoordinate : CLLocationCoordinate2D
 
                 repeat {
-                    print("Step \(i).\(substep)")
+                    
 
                     if (totalSubStep == 0) {
                         simulationCoordinate = step.coordinate
@@ -288,13 +299,14 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                             let simulationLat : Double = step.coordinate.latitude + (dLat * Double(substep) / Double(totalSubStep))
                             let simulationLng : Double = step.coordinate.longitude + (dLng * Double(substep) / Double(totalSubStep))
                             simulationCoordinate = CLLocationCoordinate2DMake(simulationLat, simulationLng)
-                            print("pre-main: \(simulationCoordinate)")
+                            print("\(simulationCoordinate)")
                         } else {
                             simulationCoordinate = step.coordinate
                         }
                     }
 
                     DispatchQueue.main.async {
+                        self.statusOutlet.stringValue = "Step \(i).\(substep)"
                         self.sendToSimulator(coordinate: simulationCoordinate)
                     }
                     if substep == totalSubStep {
