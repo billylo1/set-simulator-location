@@ -841,11 +841,12 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="70" id="SxE-xu-pin"/>
                                         </constraints>
-                                        <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" enabled="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" title="10x" drawsBackground="YES" numberOfVisibleItems="4" id="UPe-bK-A99">
+                                        <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" enabled="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" numberOfVisibleItems="5" id="UPe-bK-A99">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <objectValues>
+                                                <string></string>
                                                 <string>1x</string>
                                                 <string>5x</string>
                                                 <string>10x</string>

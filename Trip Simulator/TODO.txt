@@ -9,7 +9,7 @@
 //done - set region correctly based on route bounding box
 //done - reset buttons after simulation is done
 //done - if (sleepTime > 1), break up updates
-- fix change focus and hide suggestion boxes on buttons
+//done - fix change focus and hide suggestion boxes on buttons
 - status bar to show step # out of total # of steps
 - current annotation icon
 

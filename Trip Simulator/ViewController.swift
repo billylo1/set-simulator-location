@@ -97,6 +97,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         assignSpeed()
         tableView.delegate = self
         tableView.dataSource = self
+        speedOutlet.selectItem(at: 1)       // for some reasons, the first row cannot be selected by user
 
     }
 
@@ -149,26 +150,21 @@ class ViewController: NSViewController, NSComboBoxDelegate {
 
         generateButton.isEnabled = false
         
-        // 4.
         let sourceMapItem = MKMapItem(placemark: fromPlacemark)
         let destinationMapItem = MKMapItem(placemark: toPlacemark)
         
-        // 5.
         let sourceAnnotation = MKPointAnnotation()
         sourceAnnotation.title = fromPlacemark.title
         sourceAnnotation.coordinate = fromPlacemark.coordinate
-        
-        
+                
         let destinationAnnotation = MKPointAnnotation()
         destinationAnnotation.title = toPlacemark.title
         destinationAnnotation.coordinate = toPlacemark.coordinate
         
         currentAnnotation.coordinate = fromPlacemark.coordinate
         
-        // 6.
         self.mapView.showAnnotations([sourceAnnotation,destinationAnnotation,self.currentAnnotation], animated: true )
         
-        // 7.
         let directionRequest = MKDirections.Request()
         directionRequest.source = sourceMapItem
         directionRequest.destination = destinationMapItem
@@ -177,7 +173,6 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         // Calculate the direction
         let directions = MKDirections(request: directionRequest)
         
-        // 8.
         directions.calculate {
             (response, error) -> Void in
             
@@ -189,7 +184,6 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                 }
                 return
             }
-            
             
             self.route = response.routes[0]
             self.mapView.addOverlay(self.route.polyline)
@@ -353,18 +347,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         searchCompleter?.queryFragment = queryString
     }
     
-//    - (BOOL)isTextFieldInFocus:(NSTextField *)textField
-//    {
-//        BOOL inFocus = NO;
-//
-//        inFocus = ([[[textField window] firstResponder] isKindOfClass:[NSTextView class]]
-//                   && [[textField window] fieldEditor:NO forObject:nil]!=nil
-//                   && [textField isEqualTo:(id)[(NSTextView *)[[textField window] firstResponder]delegate]]);
-//
-//        return inFocus;
-//    }
 // https://stackoverflow.com/a/45851169/2789065
-//
     
     func isTextFieldInFocus(_ textField: NSTextField) -> Bool {
         
@@ -386,7 +369,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     @objc func textDidChange(_ obj: Notification) {
         
         if obj.object is NSSearchField {
-            
+                        
             let field = obj.object as! NSSearchField
             if ((field.identifier?.rawValue.contains("Field")) != nil) {
                 
@@ -458,8 +441,10 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                 }
             }
             if (self.fromPlacemark != nil) && (self.toPlacemark != nil) {
+                self.generateButton.isHighlighted = true
                 self.generateButton.isEnabled = true
             } else {
+                self.generateButton.isHighlighted = false
                 self.generateButton.isEnabled = false
             }
         }
