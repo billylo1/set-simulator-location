@@ -24,6 +24,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     private var stepNum = 0
     private var speedValue : Double = 1.0
     private var fromSearchFieldActive : Bool = true
+    private var currentAnnotationView = MKAnnotationView()
     
     private var searchCompleter: MKLocalSearchCompleter?
     var completerResults: [MKLocalSearchCompletion]?
@@ -99,8 +100,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         assignSpeed()
         tableView.delegate = self
         tableView.dataSource = self
-        speedOutlet.selectItem(at: 1)       // for some reasons, the first row cannot be selected by user
-
+        speedOutlet.selectItem(at: 2)       // for some reasons, the first row cannot be selected by user, default to 5x
     }
 
     override func viewWillAppear() {
@@ -111,6 +111,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
 
     override func viewDidAppear() {
         super.viewDidAppear()
+        fromOutlet.becomeFirstResponder()
         requestLocation()
     }
 
@@ -216,13 +217,13 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             self.fromOutlet.isEnabled = true
             self.toOutlet.isEnabled = true
             self.generateButton.isEnabled = true
-            self.simulateButton.isHighlighted = false
 
             return
         } else {
             simulateButton.state = NSControl.StateValue.on
             simulateButton.title = "Stop Simulation"
-
+            self.generateButton.isEnabled = true
+            
             var totalDuration = 0.0
             
             for step in route.steps {
@@ -240,7 +241,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                 }
 
                 if (totalDistance > 0) {
-                let stepPoints = step.polyline.points()
+                    let stepPoints = step.polyline.points()
                     for i in 0..<step.polyline.pointCount {
                         let stepPoint = stepPoints[i]
                         let pointDistance = stepPoint.distance(to: allSteps.last ?? stepPoint)
@@ -269,7 +270,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     func simulateMovement() {
         
         print("> simulateMovement")
-        let refreshInterval : Double = 1.0
+        let refreshInterval : Double = 2
         simulating = true
         stepNum = 0
         
@@ -277,47 +278,49 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             self.loadBootedSimulators()
         }
         
-        for i in stepNum ..< allSteps.count - 1 {
+        for i in stepNum ..< allSteps.count - 1 {                           // all steps loop
             
             if (simulating) {
-                print("moving to step \(i)")
                 let step = allSteps[i]
-                var sleepTime : Double = allDurations[i] / speedValue         // in seconds
-                var substep = 0
-                let totalSubStep : Int = Int(floor(sleepTime / refreshInterval))
+                let sleepTime : Double = allDurations[i] / speedValue         // in seconds (total for the step)
+                let lastSubStep : Int = Int(floor(sleepTime / refreshInterval))
+                print("moving to step \(i), lastSubStep = \(lastSubStep), sleepTime = \(sleepTime)")
                 var simulationCoordinate : CLLocationCoordinate2D
+                var substep = 0
 
-                repeat {
-                    
+                repeat {                                                    // substep loop
 
-                    if (totalSubStep == 0) {
+                    var subStepSleep : Double = sleepTime                   // default,  in seconds
+                    if (lastSubStep == 0) {
                         simulationCoordinate = step.coordinate
                     } else {
                         if i < (allSteps.count - 1) {
                             let dLat : Double = allSteps[i+1].coordinate.latitude - step.coordinate.latitude
                             let dLng : Double = allSteps[i+1].coordinate.longitude - step.coordinate.longitude
-                            let simulationLat : Double = step.coordinate.latitude + (dLat * Double(substep) / Double(totalSubStep))
-                            let simulationLng : Double = step.coordinate.longitude + (dLng * Double(substep) / Double(totalSubStep))
+                            if substep < lastSubStep {          // before last substep
+                                subStepSleep = refreshInterval
+                            } else {
+                                subStepSleep = sleepTime - (Double(substep)*refreshInterval)
+                            }
+                            let simulationLat : Double = step.coordinate.latitude + (dLat * subStepSleep * Double(substep) / sleepTime)
+                            let simulationLng : Double = step.coordinate.longitude + (dLng * subStepSleep * Double(substep) / sleepTime)
                             simulationCoordinate = CLLocationCoordinate2DMake(simulationLat, simulationLng)
-                            print("\(simulationCoordinate)")
+                            print("Step \(i).\(substep) - \(String(format:"%.6f",simulationCoordinate.latitude))," + "\(String(format:"%.6f",simulationCoordinate.longitude)), sleepTime = \(subStepSleep)")
                         } else {
                             simulationCoordinate = step.coordinate
                         }
                     }
-
+                    
                     DispatchQueue.main.async {
-                        self.statusOutlet.stringValue = "Step \(i).\(substep)"
+                        self.statusOutlet.stringValue = "Step \(i).\(substep) - \(String(format:"%.6f",simulationCoordinate.latitude))," + "\(String(format:"%.6f",simulationCoordinate.longitude)), sleepTime = \(subStepSleep)"
                         self.sendToSimulator(coordinate: simulationCoordinate)
                     }
-                    if substep == totalSubStep {
-                        usleep(UInt32(sleepTime * 1e6))
-                    } else {
-                        usleep(UInt32(refreshInterval * 1e6))
-                    }
-                    sleepTime -= refreshInterval
+
+                    usleep(UInt32(subStepSleep*1e6))
+
                     substep += 1
                     
-                } while (substep <= totalSubStep)
+                } while (substep <= lastSubStep)
                 
             } else {
                 return
@@ -336,10 +339,18 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         
     }
     
-        
+
+    
     func sendToSimulator(coordinate: CLLocationCoordinate2D) {
         
-        self.currentAnnotation.coordinate = coordinate
+        
+//    - (void)rotateByNumber:(NSNumber*)angle {
+//            self.layer.position = CGPointMake(NSMidX(self.frame), NSMidY(self.frame));
+//            self.layer.anchorPoint = CGPointMake(.5, .5);
+//            self.layer.affineTransform = CGAffineTransformMakeRotation(angle.floatValue);
+//        }
+        
+        currentAnnotation.coordinate = coordinate
 
         let simulators = bootedSimulators
         postNotification(for: coordinate, to: simulators.map { $0.udid.uuidString })
@@ -548,7 +559,18 @@ extension ViewController: MKMapViewDelegate {
 
         return MKPolylineRenderer()
     }
-
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil;
+        }
+        if annotation === currentAnnotation {
+            currentAnnotationView = MKAnnotationView()
+            currentAnnotationView.image = NSImage(named: NSImage.Name("target")) 
+            return currentAnnotationView
+        }
+        return nil
+    }
 }
 
 extension ViewController: MKLocalSearchCompleterDelegate {
