@@ -25,7 +25,9 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     private var speedValue : Double = 1.0
     private var fromSearchFieldActive : Bool = true
     private var currentAnnotationView = MKAnnotationView()
-    
+    private let sourceAnnotation = MovableAnnotation()
+    private let destinationAnnotation = MovableAnnotation()
+
     private var searchCompleter: MKLocalSearchCompleter?
     var completerResults: [MKLocalSearchCompletion]?
 
@@ -156,11 +158,9 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         let sourceMapItem = MKMapItem(placemark: fromPlacemark)
         let destinationMapItem = MKMapItem(placemark: toPlacemark)
         
-        let sourceAnnotation = MKPointAnnotation()
         sourceAnnotation.title = fromPlacemark.title
         sourceAnnotation.coordinate = fromPlacemark.coordinate
                 
-        let destinationAnnotation = MKPointAnnotation()
         destinationAnnotation.title = toPlacemark.title
         destinationAnnotation.coordinate = toPlacemark.coordinate
         
@@ -264,12 +264,13 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                 self.simulateMovement()
             }
         }
+        tableScrollView.isHidden = true         // clean up
     }
     
     func simulateMovement() {
         
         print("> simulateMovement")
-        let refreshInterval : Double = 2
+        let refreshInterval : Double = 0.5
         simulating = true
         stepNum = 0
         
@@ -319,8 +320,8 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                         "totalSleep = \(String(format:"%.1f",sleepTime))"
                     )
 
-                    DispatchQueue.main.async {
-                        self.statusOutlet.stringValue = "Step \(i).\(substep) - \(String(format:"%.6f",simulationCoordinate.latitude))," + "\(String(format:"%.6f",simulationCoordinate.longitude)), sleepTime = \(subStepSleep)"
+                    DispatchQueue.main.sync {
+                        self.statusOutlet.stringValue = "Step \(i).\(substep) - \(String(format:"%.6f",simulationCoordinate.latitude))," + "\(String(format:"%.6f",simulationCoordinate.longitude)), duration = \(subStepSleep)"
                         self.sendToSimulator(coordinate: simulationCoordinate)
                     }
 
@@ -336,12 +337,13 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         }
         simulating = false
         
-        //re-enable ubtton buttons
+        //re-enable simulate buttons
         DispatchQueue.main.async {
             self.simulateButton.isEnabled = true
+            self.simulateButton.title = "Start Simulation"
+            self.simulateButton.state = NSControl.StateValue.off
+            self.tableScrollView.isHidden = true
         }
-
-        
         
         return
         
