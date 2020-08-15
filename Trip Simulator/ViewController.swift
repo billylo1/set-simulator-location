@@ -395,23 +395,23 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             if ((field.identifier?.rawValue.contains("Field")) != nil) {
                 
                 // print("search for queryString")
-//                let newSearchFieldActive: Bool = (field.identifier!.rawValue == "fromField")
-//
-//                if (fromSearchFieldActive != newSearchFieldActive) {
-//
-//                    // switch suggestion box location
-//                    let currentY : CGFloat = tableScrollView.frame.minY
-//                    let fromX : CGFloat = fromOutlet.frame.minX
-//                    let toX : CGFloat = toOutlet.frame.minX
-//
-//                    if (newSearchFieldActive) {
-//                        tableScrollView.setFrameOrigin(NSPoint.init(x: fromX, y: currentY))
-//                    } else {
-//                        tableScrollView.setFrameOrigin(NSPoint.init(x: toX, y: currentY))
-//                    }
-//                    fromSearchFieldActive = newSearchFieldActive       // so the other code can tell we are working on from or to field
-//
-//                }
+                let newSearchFieldActive: Bool = (field.identifier!.rawValue == "fromField")
+
+                if (fromSearchFieldActive != newSearchFieldActive) {
+
+                    // switch suggestion box location
+                    let currentY : CGFloat = tableScrollView.frame.minY
+                    let fromX : CGFloat = fromOutlet.frame.minX
+                    let toX : CGFloat = toOutlet.frame.minX
+
+                    if (newSearchFieldActive) {
+                        tableScrollView.setFrameOrigin(NSPoint.init(x: fromX, y: currentY))
+                    } else {
+                        tableScrollView.setFrameOrigin(NSPoint.init(x: toX, y: currentY))
+                    }
+                    fromSearchFieldActive = newSearchFieldActive       // so the other code can tell we are working on from or to field
+
+                }
                 
                 guard let queryString = field.cell?.stringValue else {
                     return
@@ -611,8 +611,7 @@ extension ViewController: NSTableViewDataSource {
         
         let rowCount = completerResults?.count ?? 0
         if (rowCount > 0) {
-            tableScrollView.isHidden = false
-            print(self.tableScrollView.frame)
+            tableScrollView.isHidden = false                // just in case
         }
         return rowCount
     }
