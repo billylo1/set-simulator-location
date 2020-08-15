@@ -103,6 +103,8 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         tableView.delegate = self
         tableView.dataSource = self
         speedOutlet.selectItem(at: 1)       // for some reasons, the first row cannot be selected by user, default to 5x
+        requestLocation()
+
     }
 
     override func viewWillAppear() {
@@ -114,7 +116,6 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     override func viewDidAppear() {
         super.viewDidAppear()
         fromOutlet.becomeFirstResponder()
-        requestLocation()
     }
 
     override func viewDidDisappear() {
@@ -211,19 +212,26 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         // prepare step array with duration for playback
         
         if (simulating) {
+            
             simulating = false
             simulateButton.state = NSControl.StateValue.off
             simulateButton.title = "Start Simulation"
-            self.fromOutlet.isEnabled = true
-            self.toOutlet.isEnabled = true
-            self.generateButton.isEnabled = true
-            return
+            fromOutlet.isEnabled = true
+            toOutlet.isEnabled = true
+            generateButton.isEnabled = true
+            currentAnnotationView.isEnabled = false
+            // currentAnnotation.coordinate = fromPlacemark.coordinate         // return to starting point
+            
         } else {
+            
             simulateButton.state = NSControl.StateValue.on
+            currentAnnotationView.isEnabled = true
             simulateButton.title = "Stop Simulation"
             self.generateButton.isEnabled = true
             
             var totalDuration = 0.0
+            allDurations.removeAll()
+            allSteps.removeAll()
             
             for step in route.steps {
                 
@@ -265,6 +273,10 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             }
         }
         tableScrollView.isHidden = true         // clean up
+        fromOutlet.isEnabled = true
+        toOutlet.isEnabled = true
+        generateButton.isEnabled = true
+
     }
     
     func simulateMovement() {
@@ -321,7 +333,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                     )
 
                     DispatchQueue.main.sync {
-                        self.statusOutlet.stringValue = "Step \(i).\(substep) - \(String(format:"%.6f",simulationCoordinate.latitude))," + "\(String(format:"%.6f",simulationCoordinate.longitude)), duration = \(subStepSleep)"
+                        self.statusOutlet.stringValue = "Step \(i).\(substep) - \(String(format:"%.6f",simulationCoordinate.latitude))," + "\(String(format:"%.6f",simulationCoordinate.longitude)), duration = \(String(format:"%.1f",subStepSleep)) sec"
                         self.sendToSimulator(coordinate: simulationCoordinate)
                     }
 
@@ -372,7 +384,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     
     @IBAction func searchFieldAction(_ sender: Any) {
         
-        print("searchFieldAction")
+        // print("searchFieldAction")
         let field = sender as! NSSearchField
         guard let queryString = field.cell?.stringValue else {
             return
@@ -432,6 +444,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
 
             } else {        // changed speed
                 assignSpeed()
+                tableScrollView.isHidden = true     // clean up
             }
         }
 
@@ -540,10 +553,11 @@ extension ViewController: CLLocationManagerDelegate {
             self.currentLocation = placemark?.first
             self.boundingRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 12_000, longitudinalMeters: 12_000)
         }
+        locationManager.stopUpdatingLocation()                  // only once is sufficent
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        // Handle any errors returned from Location Services.
+        print(error)
     }
 }
 
