@@ -1,64 +1,23 @@
-# set-simulator-location
+# Trip Simulator
 
-This is a simple CLI for easily setting the location of the currently
-running iOS Simulator.
+This is a simple GUI to simulate a trip on the running iOS Simulator.  To use it, just specify the starting and ending location, the tool will generate a route for you and send location updates to the running iOS simuulator every 0.5 seconds.  It is similar to the native iOS simulator's location simulation feature (except that you can generate your own route; but it does not simulate speed or direction)
 
 ## Usage
 
-Set a specific latitude and longitude:
+Enter starting and ending location, press Generate route, choose a simulation speed (1x, 5x, 10x, 100x) and press Start Simulation
 
-```sh
-$ set-simulator-location -c 37.7765 -122.3918
-```
-
-Or using place search:
-
-```sh
-$ set-simulator-location -q Lyft HQ San Francisco
-```
-
-By default the location is set on all booted simulators. If you'd like
-to change it for only one of the booted simulators you can pass `-s`
-followed by the simulator's display name:
-
-```sh
-$ set-simulator-location -q Lyft HQ San Francisco -s iPhone X
-```
-
-NOTE: If you have multiple booted simulators with the same name, the
-location will be set on all of them.
+NOTE: If you have multiple booted simulators, the location will be set on all of them.
 
 ## Installation
 
-With [`homebrew`](http://brew.sh/):
+Use pre-compiled binary:  Download it from the release folder and launch it directly.
 
-```sh
-$ brew install lyft/formulae/set-simulator-location
-```
+Build it yourself:  Clone this repo, open Trip Simulator.xcodeproj in Xcode 
 
-With [`Mint`](https://github.com/yonaskolb/Mint):
+## Development
 
-```sh
-$ mint install lyft/set-simulator-location
-```
+Xcode 11.6 was used to develop Trip Simulator.  The UI code uses the set-simulator-location project from lyft and MapKit on macOS.
 
-With a precompiled release:
+## License
 
-1. Download the latest release from
-   [here](https://github.com/lyft/set-simulator-location/releases/)
-1. Install it some place in your `$PATH`
-
-Manually:
-
-```sh
-$ make install
-```
-
-I have submitted [a Radar](http://www.openradar.me/30789939) to have
-this behavior added to `simctl`.
-
-### Development
-
-To work on `set-simulator-location` you can make your changes and run
-`make` to build from the command line. If you'd prefer to work in Xcode
-you can run `make xcode` to generate a project using SwiftPM.
+Apache 2.0 (same as set-simulator-location)

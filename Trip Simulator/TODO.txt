@@ -13,9 +13,11 @@
 //done - status bar to show step # out of total # of steps
 //done - current annotation icon
 
-- resize/quit testing
-- distribution test
-- usage 
-- walk or bike
-- changable combobox
+//done - resize/quit testing
+//done - distribution test
+//done - usage doc, README.MD
+
+- route for walking and biking
+- editable combobox for simulation speed
 - show alert if no simulator
+- simulate speed and heading if SimulatorKit allows it

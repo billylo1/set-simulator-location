@@ -220,13 +220,9 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             toOutlet.isEnabled = true
             generateButton.isEnabled = true
             currentAnnotationView.isEnabled = false
-            AudioServicesPlaySystemSound(1053);
-
             
         } else {
             
-            AudioServicesPlaySystemSound(1054);
-
             simulateButton.state = NSControl.StateValue.on
             currentAnnotationView.isEnabled = true
             simulateButton.title = "Stop Simulation"
@@ -279,7 +275,6 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         fromOutlet.isEnabled = true
         toOutlet.isEnabled = true
         generateButton.isEnabled = true
-        AudioServicesPlaySystemSound(1054);
 
     }
     
@@ -381,7 +376,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     
     @IBAction func searchFieldAction(_ sender: Any) {
         
-        // print("searchFieldAction")
+        print("searchFieldAction")
         let field = sender as! NSSearchField
         guard let queryString = field.cell?.stringValue else {
             return
@@ -389,51 +384,34 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         tableScrollView.isHidden = false
         searchCompleter?.queryFragment = queryString
     }
-    
-// https://stackoverflow.com/a/45851169/2789065
-    
-    func isTextFieldInFocus(_ textField: NSTextField) -> Bool {
         
-        var inFocus : Bool! = false
-        inFocus = (textField.window?.firstResponder?.isKind(of: NSTextView.self))!
-            && (textField.window?.fieldEditor(false, for: nil) != nil)
-            && (textField == ((textField.window?.firstResponder as! NSTextView).delegate as! NSTextField))
-        
-        return inFocus
-        
-    }
-    
-    func fromSearchFieldActiveTest() -> Bool {
-        
-        return isTextFieldInFocus(self.fromOutlet)
-        
-    }
-    
     @objc func textDidChange(_ obj: Notification) {
         
+        print("textDidChange")
+
         if obj.object is NSSearchField {
                         
             let field = obj.object as! NSSearchField
             if ((field.identifier?.rawValue.contains("Field")) != nil) {
                 
                 // print("search for queryString")
-                let newSearchFieldActive: Bool = (field.identifier!.rawValue == "fromField")
-                
-                if (fromSearchFieldActive != newSearchFieldActive) {
-                    
-                    // switch suggestion box location
-                    let currentY : CGFloat = tableScrollView.frame.minY
-                    let fromX : CGFloat = fromOutlet.frame.minX
-                    let toX : CGFloat = toOutlet.frame.minX
-
-                    if (newSearchFieldActive) {
-                        tableScrollView.setFrameOrigin(NSPoint.init(x: fromX, y: currentY))
-                    } else {
-                        tableScrollView.setFrameOrigin(NSPoint.init(x: toX, y: currentY))
-                    }
-                    fromSearchFieldActive = newSearchFieldActive       // so the other code can tell we are working on from or to field
-
-                }
+//                let newSearchFieldActive: Bool = (field.identifier!.rawValue == "fromField")
+//
+//                if (fromSearchFieldActive != newSearchFieldActive) {
+//
+//                    // switch suggestion box location
+//                    let currentY : CGFloat = tableScrollView.frame.minY
+//                    let fromX : CGFloat = fromOutlet.frame.minX
+//                    let toX : CGFloat = toOutlet.frame.minX
+//
+//                    if (newSearchFieldActive) {
+//                        tableScrollView.setFrameOrigin(NSPoint.init(x: fromX, y: currentY))
+//                    } else {
+//                        tableScrollView.setFrameOrigin(NSPoint.init(x: toX, y: currentY))
+//                    }
+//                    fromSearchFieldActive = newSearchFieldActive       // so the other code can tell we are working on from or to field
+//
+//                }
                 
                 guard let queryString = field.cell?.stringValue else {
                     return
@@ -443,7 +421,6 @@ class ViewController: NSViewController, NSComboBoxDelegate {
 
             } else {        // changed speed
                 assignSpeed()
-                tableScrollView.isHidden = true     // clean up
             }
         }
 
@@ -552,7 +529,6 @@ extension ViewController: CLLocationManagerDelegate {
             self.currentLocation = placemark?.first
             self.boundingRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 12_000, longitudinalMeters: 12_000)
         }
-        locationManager.stopUpdatingLocation()                  // only once is sufficent
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -636,6 +612,7 @@ extension ViewController: NSTableViewDataSource {
         let rowCount = completerResults?.count ?? 0
         if (rowCount > 0) {
             tableScrollView.isHidden = false
+            print(self.tableScrollView.frame)
         }
         return rowCount
     }
