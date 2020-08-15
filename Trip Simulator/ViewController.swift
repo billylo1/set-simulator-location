@@ -100,7 +100,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         assignSpeed()
         tableView.delegate = self
         tableView.dataSource = self
-        speedOutlet.selectItem(at: 2)       // for some reasons, the first row cannot be selected by user, default to 5x
+        speedOutlet.selectItem(at: 1)       // for some reasons, the first row cannot be selected by user, default to 5x
     }
 
     override func viewWillAppear() {
@@ -217,7 +217,6 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             self.fromOutlet.isEnabled = true
             self.toOutlet.isEnabled = true
             self.generateButton.isEnabled = true
-
             return
         } else {
             simulateButton.state = NSControl.StateValue.on
@@ -283,8 +282,8 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             if (simulating) {
                 let step = allSteps[i]
                 let sleepTime : Double = allDurations[i] / speedValue         // in seconds (total for the step)
-                let lastSubStep : Int = Int(floor(sleepTime / refreshInterval))
-                print("moving to step \(i), lastSubStep = \(lastSubStep), sleepTime = \(sleepTime)")
+                let lastSubStep : Int = Int(floor(sleepTime / refreshInterval)) 
+                // print("moving to step \(i), lastSubStep = \(lastSubStep), sleepTime = \(sleepTime)")
                 var simulationCoordinate : CLLocationCoordinate2D
                 var substep = 0
 
@@ -297,20 +296,29 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                         if i < (allSteps.count - 1) {
                             let dLat : Double = allSteps[i+1].coordinate.latitude - step.coordinate.latitude
                             let dLng : Double = allSteps[i+1].coordinate.longitude - step.coordinate.longitude
-                            if substep < lastSubStep {          // before last substep
+                            var simulationLat, simulationLng : Double
+                            if substep < (lastSubStep) {          // before last substep
                                 subStepSleep = refreshInterval
+                                simulationLat = step.coordinate.latitude + (dLat * refreshInterval * Double(substep) / sleepTime)
+                                simulationLng = step.coordinate.longitude + (dLng * refreshInterval * Double(substep) / sleepTime)
                             } else {
                                 subStepSleep = sleepTime - (Double(substep)*refreshInterval)
+                                simulationLat = step.coordinate.latitude + (dLat * (1 - subStepSleep / sleepTime))          // remaining time
+                                simulationLng = step.coordinate.longitude + (dLng * (1 - subStepSleep / sleepTime))
                             }
-                            let simulationLat : Double = step.coordinate.latitude + (dLat * subStepSleep * Double(substep) / sleepTime)
-                            let simulationLng : Double = step.coordinate.longitude + (dLng * subStepSleep * Double(substep) / sleepTime)
                             simulationCoordinate = CLLocationCoordinate2DMake(simulationLat, simulationLng)
-                            print("Step \(i).\(substep) - \(String(format:"%.6f",simulationCoordinate.latitude))," + "\(String(format:"%.6f",simulationCoordinate.longitude)), sleepTime = \(subStepSleep)")
                         } else {
                             simulationCoordinate = step.coordinate
                         }
                     }
                     
+                    print("Step \(i).\(substep) - " +
+                        "\(String(format:"%.6f",simulationCoordinate.latitude))," +
+                        "\(String(format:"%.6f",simulationCoordinate.longitude)), " +
+                        "subStepSleep = \(String(format:"%.1f",subStepSleep)), " +
+                        "totalSleep = \(String(format:"%.1f",sleepTime))"
+                    )
+
                     DispatchQueue.main.async {
                         self.statusOutlet.stringValue = "Step \(i).\(substep) - \(String(format:"%.6f",simulationCoordinate.latitude))," + "\(String(format:"%.6f",simulationCoordinate.longitude)), sleepTime = \(subStepSleep)"
                         self.sendToSimulator(coordinate: simulationCoordinate)
@@ -320,7 +328,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
 
                     substep += 1
                     
-                } while (substep <= lastSubStep)
+                } while (substep <= lastSubStep) && (simulating)
                 
             } else {
                 return
