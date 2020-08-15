@@ -11,5 +11,11 @@
 //done - if (sleepTime > 1), break up updates
 //done - fix change focus and hide suggestion boxes on buttons
 //done - status bar to show step # out of total # of steps
-- current annotation icon
+//done - current annotation icon
 
+- resize/quit testing
+- distribution test
+- usage 
+- walk or bike
+- changable combobox
+- show alert if no simulator

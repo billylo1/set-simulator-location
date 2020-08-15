@@ -740,11 +740,11 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView identifier="cell" id="mqa-Iw-J7K">
-                                                            <rect key="frame" x="1" y="1" width="40" height="17"/>
+                                                            <rect key="frame" x="1" y="1" width="295" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BpI-hV-a2B">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="17"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="295" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="EnY-z2-Pp0">
                                                                         <font key="font" metaFont="system"/>
@@ -779,7 +779,7 @@
                                 <rect key="frame" x="0.0" y="270" width="1164" height="40"/>
                                 <subviews>
                                     <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OWx-dQ-ITi" userLabel="FromToView">
-                                        <rect key="frame" x="0.0" y="0.0" width="774" height="40"/>
+                                        <rect key="frame" x="8" y="0.0" width="774" height="40"/>
                                         <subviews>
                                             <searchField identifier="fromField" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GI8-sX-btG" userLabel="From">
                                                 <rect key="frame" x="0.0" y="9" width="383" height="22"/>
@@ -817,7 +817,7 @@
                                         </customSpacing>
                                     </stackView>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zwQ-Ze-NW8">
-                                        <rect key="frame" x="786" y="3" width="141" height="32"/>
+                                        <rect key="frame" x="791" y="3" width="141" height="32"/>
                                         <buttonCell key="cell" type="push" title="Generate Route" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="e3m-kR-6qp">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -827,7 +827,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6sK-xc-MOR">
-                                        <rect key="frame" x="931" y="3" width="143" height="32"/>
+                                        <rect key="frame" x="934" y="3" width="143" height="32"/>
                                         <buttonCell key="cell" type="push" title="Start Simulation" alternateTitle="Stop Simulation" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Bc4-nl-WWd">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -857,6 +857,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="HOu-sc-4Ln" secondAttribute="trailing" constant="8" id="WSx-Vx-aDv"/>
+                                    <constraint firstItem="OWx-dQ-ITi" firstAttribute="leading" secondItem="Zkz-st-hQv" secondAttribute="leading" constant="8" id="pyR-G3-b2A"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>

@@ -8,6 +8,7 @@
 import Cocoa
 import MapKit
 import CoreLocation
+import AudioToolbox
 
 class ViewController: NSViewController, NSComboBoxDelegate {
 
@@ -23,7 +24,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     private var simulating = false
     private var stepNum = 0
     private var speedValue : Double = 1.0
-    private var fromSearchFieldActive : Bool = true
+    private var fromSearchFieldActive : Bool = false
     private var currentAnnotationView = MKAnnotationView()
     private let sourceAnnotation = MovableAnnotation()
     private let destinationAnnotation = MovableAnnotation()
@@ -92,7 +93,6 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         locationManager.delegate = self
         mapView.delegate = self
         speedOutlet.delegate = self
-        fromOutlet.becomeFirstResponder()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(textDidChange(_:)),
                                                name: NSSearchField.textDidChangeNotification,
@@ -220,10 +220,13 @@ class ViewController: NSViewController, NSComboBoxDelegate {
             toOutlet.isEnabled = true
             generateButton.isEnabled = true
             currentAnnotationView.isEnabled = false
-            // currentAnnotation.coordinate = fromPlacemark.coordinate         // return to starting point
+            AudioServicesPlaySystemSound(1053);
+
             
         } else {
             
+            AudioServicesPlaySystemSound(1054);
+
             simulateButton.state = NSControl.StateValue.on
             currentAnnotationView.isEnabled = true
             simulateButton.title = "Stop Simulation"
@@ -276,6 +279,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         fromOutlet.isEnabled = true
         toOutlet.isEnabled = true
         generateButton.isEnabled = true
+        AudioServicesPlaySystemSound(1054);
 
     }
     
@@ -325,7 +329,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                         }
                     }
                     
-                    print("Step \(i).\(substep) - " +
+                    print("Step \(i).\(substep): " +
                         "\(String(format:"%.6f",simulationCoordinate.latitude))," +
                         "\(String(format:"%.6f",simulationCoordinate.longitude)), " +
                         "subStepSleep = \(String(format:"%.1f",subStepSleep)), " +
@@ -333,7 +337,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                     )
 
                     DispatchQueue.main.sync {
-                        self.statusOutlet.stringValue = "Step \(i).\(substep) - \(String(format:"%.6f",simulationCoordinate.latitude))," + "\(String(format:"%.6f",simulationCoordinate.longitude)), duration = \(String(format:"%.1f",subStepSleep)) sec"
+                        self.statusOutlet.stringValue = "Step \(i).\(substep): \(String(format:"%.6f",simulationCoordinate.latitude))," + "\(String(format:"%.6f",simulationCoordinate.longitude)), duration = \(String(format:"%.1f",subStepSleep)) sec"
                         self.sendToSimulator(coordinate: simulationCoordinate)
                     }
 
@@ -365,13 +369,6 @@ class ViewController: NSViewController, NSComboBoxDelegate {
     
     func sendToSimulator(coordinate: CLLocationCoordinate2D) {
         
-        
-//    - (void)rotateByNumber:(NSNumber*)angle {
-//            self.layer.position = CGPointMake(NSMidX(self.frame), NSMidY(self.frame));
-//            self.layer.anchorPoint = CGPointMake(.5, .5);
-//            self.layer.affineTransform = CGAffineTransformMakeRotation(angle.floatValue);
-//        }
-        
         currentAnnotation.coordinate = coordinate
 
         let simulators = bootedSimulators
@@ -389,6 +386,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
         guard let queryString = field.cell?.stringValue else {
             return
         }
+        tableScrollView.isHidden = false
         searchCompleter?.queryFragment = queryString
     }
     
@@ -440,6 +438,7 @@ class ViewController: NSViewController, NSComboBoxDelegate {
                 guard let queryString = field.cell?.stringValue else {
                     return
                 }
+                tableScrollView.isHidden = false     // clean up
                 searchCompleter?.queryFragment = queryString
 
             } else {        // changed speed
@@ -728,3 +727,4 @@ private class SuggestedCompletionTableCellView: NSTableCellView {
     static let reuseID = "SuggestedCompletionTableCellViewReuseID"
     
 }
+
