@@ -18,6 +18,15 @@ Build it yourself:  Clone this repo, open Trip Simulator.xcodeproj in Xcode
 
 Xcode 11.6 was used to develop Trip Simulator.  The UI code uses the set-simulator-location project from lyft and MapKit on macOS.
 
+
+## Credits
+
+The original set-simulator-location by Lyft
+<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
+
 ## License
 
 Apache 2.0 (same as set-simulator-location)
+
+
