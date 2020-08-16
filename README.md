@@ -17,7 +17,7 @@ NOTE: If you have multiple booted simulators, the location will be set on all of
 
 ## Installation
 
-Use pre-compiled binary:  Download it [here](https://evergreen-labs.com/download/Trip%20Simulator.zip), unzip and launch it directly (notorized by Apple)
+Use pre-compiled binary:  Download it [here](https://evergreen-labs.com/download/trip-simulator.zip), unzip and launch it directly (notorized by Apple)
 
 Build it yourself:  Clone this repo, open Trip Simulator.xcodeproj in Xcode 
 
