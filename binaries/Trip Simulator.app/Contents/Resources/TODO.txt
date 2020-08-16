@@ -1,0 +1,23 @@
+//done - call set-location api
+//done - search results selection
+//done - app icon
+
+//done - apply typeahead logic to ToOutlet as well
+//done - move suggestion box to directly below active search field
+//done - don't ask for permission every time
+
+//done - set region correctly based on route bounding box
+//done - reset buttons after simulation is done
+//done - if (sleepTime > 1), break up updates
+//done - fix change focus and hide suggestion boxes on buttons
+//done - status bar to show step # out of total # of steps
+//done - current annotation icon
+
+//done - resize/quit testing
+//done - distribution test
+//done - usage doc, README.MD
+
+- route for walking and biking
+- editable combobox for simulation speed
+- show alert if no simulator
+- simulate speed and heading if SimulatorKit allows it
