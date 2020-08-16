@@ -17,18 +17,18 @@ NOTE: If you have multiple booted simulators, the location will be set on all of
 
 ## Installation
 
-Use pre-compiled binary:  Download it from the release folder and launch it directly.
+Use pre-compiled binary:  Download it [here](https://evergreen-labs.com/download/Trip%20Simulator.zip), unzip and launch it directly (notorized by Apple)
 
 Build it yourself:  Clone this repo, open Trip Simulator.xcodeproj in Xcode 
 
 ## Development
 
-Xcode 11.6 was used to develop Trip Simulator.  The UI code uses the set-simulator-location project from lyft and MapKit on macOS.
+Xcode 11.6 was used to develop Trip Simulator.  The UI code uses the [set-simulator-location](https://github.com/lyft/set-simulator-location) project from lyft and [MapKit](https://developer.apple.com/documentation/mapkit) for macOS.
 
 
 ## Credits
 
-The original set-simulator-location by Lyft
+The original [set-simulator-location](https://github.com/lyft/set-simulator-location) by [Lyft](https://github.com/lyft)
 <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
 
